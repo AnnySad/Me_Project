@@ -10,18 +10,7 @@ function Profile() {
     const [checked, setChecked] = useState<boolean>(false)
     return (
         <div>
-            <SuperInputText
-                className={s.blue}
-            />
-            <div>
-                <SuperCheckbox   checked={checked}
-                                 onChangeChecked={setChecked}/>
-            </div>
-            <div>
-                <SuperButton>
-                   click
-                </SuperButton>
-            </div>
+            Profile
         </div>
 
     );
