@@ -9,7 +9,6 @@ function App() {
       <div className="App">
         {/*в gh-pages лучше работает HashRouter*/}
 
-        <h1>1111</h1>
         <HashRouter>
 
           <Header/>

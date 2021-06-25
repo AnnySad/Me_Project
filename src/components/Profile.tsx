@@ -19,7 +19,7 @@ function Profile() {
             </div>
             <div>
                 <SuperButton>
-                    default
+                   click
                 </SuperButton>
             </div>
         </div>
