@@ -1,7 +1,7 @@
 import React from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Error404 from "../404/Error404";
-import Login from "../Login";
+import Login from "../login/Login";
 import CheckIn from "../CheckIn";
 import PasswordRecovery from "../PasswordRecovery";
 import Profile from "../Profile";
