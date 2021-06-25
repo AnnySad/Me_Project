@@ -1,5 +1,5 @@
 import React from 'react'
-import pages404 from'./404.png'
+import pages404 from './404.png'
 import s from './404.module.css'
 
 function Error404() {

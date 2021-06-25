@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
-import {PATH} from "./Routes.";
+import {PATH} from "../routes/Routes.";
 import s from './Header.module.css'
 
 

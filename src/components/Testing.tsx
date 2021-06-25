@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import SuperInputText from "./Input/Input";
-import s from './Header.module.css'
+import s from './header/Header.module.css'
 import SuperCheckbox from "./checkbox/Checkbox";
 import SuperButton from "./button/Button";
 
