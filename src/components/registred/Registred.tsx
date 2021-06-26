@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 import { Preloader } from "./../Preloader/Preloader";
 
 export const Registred = () => {
-  const [email, setEmail] = useState<string>("sadasda@mail.ru");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [errorEmailMessage, setErrorEmailMessage] = useState<string | null>(null);
