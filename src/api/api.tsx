@@ -1,20 +1,18 @@
-import axios from 'axios'
+import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
-    withCredentials: true
-
-})
+  baseURL: "http://localhost:7542/2.0/",
+  withCredentials: true,
+});
 
 // api
 export const API = {
+  createLogin(payload: any) {
+    const promise = instance.post<any>("auth/login", payload);
+    return promise;
+  },
 
-    createLogin(payload: any) {
-        const promise = instance.post<any>('auth/login', payload);
-        return promise;
-    }
-}
-
-
-
-
+  checkIn(email: string, password: string) {
+    return instance.post("auth/register", { email, password });
+  },
+};
