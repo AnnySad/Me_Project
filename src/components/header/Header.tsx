@@ -22,8 +22,8 @@ function Header() {
         <NavLink to={PATH.REGISTRED} className={s.link}>
           registred
         </NavLink>
-        <NavLink to={PATH.CHECK_IN} className={s.link}>
-          check-in
+        <NavLink to={PATH.FORGOT} className={s.link}>
+          forgot
         </NavLink>
         <NavLink to={PATH.PROFILE} className={s.link}>
           profile
