@@ -10,8 +10,8 @@ const message = `<div style="background-color: lime; padding: 15px">
 	link</a></div>`
 // api
 export const API = {
-  createLogin(payload: any) {
-    const promise = instance.post<any>("auth/login", payload);
+  createLogin(email: string, password: string, rememberMe:boolean) {
+    const promise = instance.post<any>("auth/login", {email, password, rememberMe});
     return promise;
   },
 
