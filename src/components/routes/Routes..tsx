@@ -8,6 +8,7 @@ import Profile from "../Profile";
 import EnteringNewPassword from "../EnteringNewPassword";
 import Testing from "../Testing";
 import { Registred } from "./../registred/Registred";
+import {Forgot} from "../forgot/Forgot";
 
 export const PATH = {
   LOGIN: "/login",
@@ -16,7 +17,8 @@ export const PATH = {
   PROFILE: "/profile",
   TESTING: "/testing",
   PASSWORD_RECOVERY: "/password-recovery",
-  ENTERING_NEW_PASSWORD: "/entering-new-password",
+  ENTERING_NEW_PASSWORD: "/entering-new-password/:token",
+    FORGOT:'/forgot'
 };
 
 function Routes() {
@@ -29,7 +31,7 @@ function Routes() {
 
       <Route path={PATH.LOGIN} render={() => <Login />} />
       <Route path={PATH.REGISTRED} render={() => <Registred />} />
-      <Route path={PATH.CHECK_IN} render={() => <CheckIn />} />
+      <Route path={PATH.FORGOT} render={() => <Forgot />} />
       <Route path={PATH.PROFILE} render={() => <Profile />} />
       <Route path={PATH.TESTING} render={() => <Testing />} />
       <Route path={PATH.PASSWORD_RECOVERY} render={() => <PasswordRecovery />} />

@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { AppStoreType } from "../../bll/store";
 import { Redirect } from "react-router-dom";
 import { Preloader } from "./../Preloader/Preloader";
+import {API} from "../../api/api";
 
 export const Registred = () => {
   const [email, setEmail] = useState<string>("");
@@ -52,6 +53,7 @@ export const Registred = () => {
   const onSubmitForm = useCallback(() => {
     dispatch(checkInThunk(email, password));
   }, [email, password]);
+
 
   const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.register.isRegistred);
   if (isLoggedIn) {
