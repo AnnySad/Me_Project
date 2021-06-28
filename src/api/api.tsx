@@ -11,9 +11,15 @@ const message = `<div style="background-color: lime; padding: 15px">
 
 // api
 export const API = {
+  
   createLogin(payload: any) {
     return instance.post<any>("auth/login", payload);
   },
+
+  // logout() {
+  //   return instance.delete<ResponseType>('auth/login')
+  // },
+
   checkIn(email: string, password: string) {
     return instance.post("auth/register", { email, password });
   },
