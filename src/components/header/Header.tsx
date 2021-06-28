@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 import { PATH } from "../routes/Routes.";
 import s from "./Header.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStoreType} from "../../bll/store";
+import {logOutTC} from "../../bll/authReducer";
 
 function Header() {
+  const isLogined = useSelector<AppStoreType, boolean>(state => state.login.isLogined)
+  const dispatch= useDispatch()
+  const  logoutHandler = ()=>{
+    dispatch(logOutTC())
+  }
+
+  console.log('isLogined', isLogined)
+
   return (
     <div className={s.menuWrapper}>
       <nav className={s.containerMenuLinks}>
-        <NavLink to={PATH.LOGIN} className={s.link} activeClassName={s.activeLink}>
-          login
+        <NavLink to={PATH.LOGIN} onClick={logoutHandler} className={s.link} activeClassName={s.activeLink}>
+          {isLogined ? 'logout' : 'login'}
         </NavLink>
         <NavLink to={PATH.REGISTRED} className={s.link} activeClassName={s.activeLink}>
           registred
