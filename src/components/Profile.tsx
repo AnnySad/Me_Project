@@ -1,19 +1,18 @@
-import React, {useState} from "react";
-import SuperInputText from "./common/Input/Input";
-import s from './header/Header.module.css'
-import SuperCheckbox from "./common/checkbox/Checkbox";
-import SuperButton from "./common/button/Button";
-
-
+import React, { useEffect, useState } from "react";
+import { authAPI } from "../api/api";
+import { authThunk } from "../bll/authReducer";
+import { useDispatch } from "react-redux";
+import { AuthRedirectComponent } from "../hoc/AuthRedirectComponent";
 
 function Profile() {
-    const [checked, setChecked] = useState<boolean>(false)
-    return (
-        <div>
-            Profile
-        </div>
+  const dispatch = useDispatch();
 
-    );
+  useEffect(() => {
+    // authAPI.authMe().then((res) => console.log(res));
+    dispatch(authThunk());
+  }, []);
+
+  return <div>Profile</div>;
 }
 
-export default Profile;
+export default AuthRedirectComponent(Profile);

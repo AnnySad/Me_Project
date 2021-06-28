@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,7 @@
     rgb(64, 198, 201),
     rgb(35, 216, 207)
   ); */
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to top right,
     rgb(101, 115, 255),
     rgb(111, 114, 247),
@@ -33,7 +33,7 @@
     rgb(187, 108, 184),
     rgb(196, 108, 176),
     rgb(206, 107, 168)
-  );
+  ); */
 }
 
 .form {
@@ -72,6 +72,10 @@
 
 .btn_wrap {
   margin: 40px 0 30px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .btn_wrap button {
@@ -85,7 +89,6 @@
   background: #d7d8ef;
   border-radius: 30px;
   color: #21268f;
-  margin-right: 50px;
 }
 
 .register_btn {
@@ -99,4 +102,10 @@
 .error {
   color: red;
   font-size: 14px;
+}
+
+@media (max-width: 420px) {
+  .cancel_btn {
+    margin-bottom: 20px;
+  }
 }
