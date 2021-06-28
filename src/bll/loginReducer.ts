@@ -60,21 +60,21 @@ export const onClickLoginThunk = (email: string, password: string,
         });
 }
 
-export const logoutTC = (email: string, password: string,
-                         checked:boolean) => (dispatch: Dispatch) => {
-    dispatch(toggleIsFetching(true));
-    API.logout()
-        .then(res => {
-            dispatch(toggleIsFetching(false));
-            dispatch(loginAC(<LoginUserType>{isLogined: false}));
-            console.log(res)
-        })
-        .catch((err) => {
-            dispatch(toggleIsFetching(false));
-            const error = err.response ? err.response.data.error : err.message + "some error";
-            dispatch(setError(error));
-        });
-}
+// export const logoutTC = (email: string, password: string,
+//                          checked:boolean) => (dispatch: Dispatch) => {
+//     dispatch(toggleIsFetching(true));
+//     API.logout()
+//         .then(res => {
+//             dispatch(toggleIsFetching(false));
+//             dispatch(loginAC(<LoginUserType>{isLogined: false}));
+//             console.log(res)
+//         })
+//         .catch((err) => {
+//             dispatch(toggleIsFetching(false));
+//             const error = err.response ? err.response.data.error : err.message + "some error";
+//             dispatch(setError(error));
+//         });
+// }
 
 //types
 type LoginActionType =ReturnType<typeof loginAC> | ReturnType<typeof setError> | ReturnType<typeof toggleIsFetching>;

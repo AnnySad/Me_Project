@@ -15,9 +15,9 @@ export const API = {
     return promise;
   },
 
-  logout() {
-    return instance.delete<ResponseType>('auth/login')
-  },
+  // logout() {
+  //   return instance.delete<ResponseType>('auth/login')
+  // },
 
   checkIn(email: string, password: string) {
     return instance.post("auth/register", { email, password });
