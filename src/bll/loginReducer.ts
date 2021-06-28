@@ -1,5 +1,6 @@
 import {API} from "../api/api";
 import {Dispatch} from "redux";
+import {authThunk} from "./authReducer";
 
 const initState = {
     email: "",
@@ -44,11 +45,12 @@ export const toggleIsFetching = (isFetching: boolean) =>
 
 //thunk
 export const onClickLoginThunk = (email: string, password: string,
-                                  checked:boolean) => (dispatch: Dispatch) => {
+                                  checked:boolean) => (dispatch: any) => {
 
     dispatch(toggleIsFetching(true));
-    API.createLogin(email, password, false)
+    API.createLogin({email, password, rememberMe:false})
         .then((res) => {
+           dispatch( authThunk())
             dispatch(toggleIsFetching(false));
             dispatch(loginAC(<LoginUserType>{isLogined: true}));
             console.log(res)

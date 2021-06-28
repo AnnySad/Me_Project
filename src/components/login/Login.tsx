@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../bll/store";
 import {Redirect} from "react-router-dom";
 import {Preloader} from "../Preloader/Preloader";
-import s from "./login.module.css";
+import s from "./../registred/Registred.module.css";
 import {onClickLoginThunk} from "../../bll/loginReducer";
 
 export const Login = () => {
@@ -18,7 +18,12 @@ export const Login = () => {
     const [errorPasswordMessage, setErrorPasswordMessage] = useState<string | null>(null);
 
     const dispatch = useDispatch();
-
+    const setEmailHandle = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.currentTarget.value);
+    };
+    const setPasswordHandle = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.currentTarget.value);
+    };
 
 
 
@@ -60,20 +65,22 @@ export const Login = () => {
             {isFetching ? <Preloader/> : null}
             <div className={s.container}>
                 <div className={s.form}>
-                    <SuperInputText
+                    <input
+                        className={s.inputs}
                         type='email'
                         value={email}
                         placeholder={"email"}
-                        onChangeText={setEmail}
+                        onChange={setEmailHandle}
                         onBlur={setEmailError}/>
                     {errorEmailMessage && <span className={s.error}>{errorEmailMessage}</span>}
 
-                    <SuperInputText
+                    <input
+                        className={s.inputs}
                         type='password'
                         value={password}
                         placeholder={"password"}
                         onBlur={setPasswordError}
-                        onChangeText={setPassword}/>
+                        onChange={setPasswordHandle}/>
                     {error && <span className={s.error}>{error}</span>}
                     {errorPasswordMessage && <span className={s.error}>{errorPasswordMessage}</span>}
 

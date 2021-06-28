@@ -66,11 +66,12 @@ export const Registred = () => {
       <div className={s.container}>
         <div className={s.form}>
           <h3>Sing up</h3>
-          <input type='email' value={email} onChange={setEmailHandle} onBlur={setEmailError} placeholder={"Email"} />
+          <input type='email' className={s.inputs} value={email} onChange={setEmailHandle} onBlur={setEmailError} placeholder={"Email"} />
           {errorEmailMessage && <span className={s.error}>{errorEmailMessage}</span>}
-          <input type='password' value={password} onChange={setPasswordHandle} placeholder={"Password"} />
+          <input type='password' className={s.inputs} value={password} onChange={setPasswordHandle} placeholder={"Password"} />
           <input
             type='password'
+            className={s.inputs}
             value={confirmPassword}
             onChange={setConfirmPassHandle}
             onBlur={setPasswordError}

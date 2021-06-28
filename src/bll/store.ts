@@ -11,7 +11,7 @@ const reducers = combineReducers({
   forgot: forgotReducer,
   auth: authReducer,
   login: loginReducer
-
+})
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
