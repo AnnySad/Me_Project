@@ -3,8 +3,8 @@ import {Dispatch} from "redux";
 import {authThunk, setUserData} from "./authReducer";
 
 const initState = {
-    email: "",
-    password: "",
+    // email: "",
+    // password: "",
     isLogined: false,
     error: null as null | string,
     isFetching: false,
@@ -12,12 +12,12 @@ const initState = {
 
 export const loginReducer = (state: initialStateType = initState, action: LoginActionType): typeof initState => {
     switch (action.type) {
-        case "LOGIN": {
-            return {
-                ...state,
-                ...action.payload,
-            };
-        }
+        // case "LOGIN": {
+        //     return {
+        //         ...state,
+        //         ...action.payload,
+        //     };
+        // }
         case "SET-ERROR":
             return {
                 ...state,
@@ -60,9 +60,11 @@ export const onClickLoginThunk = (email: string, password: string,
     dispatch(toggleIsFetching(true));
     API.createLogin({email, password, rememberMe: false})
         .then((res) => {
-            dispatch(authThunk())
-            dispatch(toggleIsFetching(false));
-            dispatch(loginAC(<LoginUserType>{isLogined: true}));
+            dispatch(authThunk()).then(() => {
+                dispatch(isLoginedAC(true))
+                dispatch(toggleIsFetching(false));
+            })
+            // dispatch(loginAC(<LoginUserType>{isLogined: true}));
             console.log(res)
         })
         .catch((err) => {
@@ -76,7 +78,7 @@ export const onClickLoginThunk = (email: string, password: string,
 
 
 //types
-type LoginActionType = ReturnType<typeof loginAC> | ReturnType<typeof setError> | ReturnType<typeof toggleIsFetching> | ReturnType<typeof isLoginedAC>;
+type LoginActionType =  ReturnType<typeof setError> | ReturnType<typeof toggleIsFetching> | ReturnType<typeof isLoginedAC>;
 
 type initialStateType = typeof initState;
 
