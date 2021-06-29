@@ -6,9 +6,9 @@ import { useCallback } from "react";
 import { AppStoreType } from "../../bll/store";
 import { Redirect } from "react-router-dom";
 import { Preloader } from "./../Preloader/Preloader";
-import {API} from "../../api/api";
+import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
 
-export const Registred = () => {
+ const Registered = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -55,10 +55,6 @@ export const Registred = () => {
   }, [email, password]);
 
 
-  const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.register.isRegistred);
-  if (isLoggedIn) {
-    return <Redirect to={"/login"} />;
-  }
 
   return (
     <>
@@ -91,3 +87,6 @@ export const Registred = () => {
     </>
   );
 };
+
+
+export default  AuthRedirectComponent(Registered)
