@@ -1,19 +1,13 @@
-import React from "react";
-import {Route, useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function EnteringNewPassword() {
-
-    let { token } = useParams<{token: string}>();
-    console.log(token);
-    return (
-        <Route
-            path="/entering-new-password/:token"
-            render={({ match }) => {
-                // Do whatever you want with the match...
-                return <div />;
-            }}
-        />
-    );
+  let { token } = useParams<{ token: string }>();
+  return (
+    <div>
+      <input type='email' placeholder={"Email"} />
+      <input type='password' placeholder={"Password"} />
+    </div>
+  );
 }
 
 export default EnteringNewPassword;
