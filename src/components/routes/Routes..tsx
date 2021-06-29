@@ -39,6 +39,7 @@ function Routes() {
             <Route path={PATH.ENTERING_NEW_PASSWORD} render={() => <EnteringNewPassword/>}/>
 
 
+
       {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
       <Route render={() => <Error404 />} />
     </Switch>
