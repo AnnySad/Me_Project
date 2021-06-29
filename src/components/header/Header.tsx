@@ -36,9 +36,9 @@ function Header() {
         <NavLink to={PATH.PASSWORD_RECOVERY} className={s.link}>
           password-recovery
         </NavLink> */}
-        <NavLink to={PATH.ENTERING_NEW_PASSWORD} className={s.link} activeClassName={s.activeLink}>
+        {/* <NavLink to={PATH.ENTERING_NEW_PASSWORD} className={s.link} activeClassName={s.activeLink}>
           entering-new-password
-        </NavLink>
+        </NavLink> */}
       </nav>
     </div>
   );

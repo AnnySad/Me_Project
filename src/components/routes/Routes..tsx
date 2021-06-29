@@ -17,7 +17,7 @@ export const PATH = {
   PROFILE: "/profile",
   TESTING: "/testing",
   PASSWORD_RECOVERY: "/password-recovery",
-  ENTERING_NEW_PASSWORD: "/entering-new-password/:token",
+  ENTERING_NEW_PASSWORD: "/set-new-password/:token",
   FORGOT: "/forgot",
 };
 
@@ -36,9 +36,6 @@ function Routes() {
       <Route path={PATH.TESTING} render={() => <Testing />} />
       <Route path={PATH.PASSWORD_RECOVERY} render={() => <PasswordRecovery />} />
       <Route path={PATH.ENTERING_NEW_PASSWORD} render={() => <EnteringNewPassword />} />
-      {/*
-        <Route path={PATH.ENTERING_NEW_PASSWORD} children={<EnteringNewPassword />} />
-      */}
 
       {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
       <Route render={() => <Error404 />} />
