@@ -1,5 +1,4 @@
-import React, {ChangeEvent, useCallback, useState} from "react";
-import SuperInputText from "../common/Input/Input";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import SuperCheckbox from "../common/checkbox/Checkbox";
 import SuperButton from "../common/button/Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,11 +10,17 @@ import {onClickLoginThunk} from "../../bll/loginReducer";
 
 export const Login = () => {
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.login.isLogined);
+    console.log('isLoggedIn = ', isLoggedIn)
+    const [email, setEmail] = useState("cheptsova.liza@mail.ru")
+    const [password, setPassword] = useState("11111111")
     const [checked, setChecked] = useState(false)
     const [errorEmailMessage, setErrorEmailMessage] = useState<string | null>(null);
     const [errorPasswordMessage, setErrorPasswordMessage] = useState<string | null>(null);
+
+    // useEffect(() => {
+    //     if(isLoggedIn) return
+    // },[])
 
     const dispatch = useDispatch();
     const setEmailHandle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,27 +52,28 @@ export const Login = () => {
     };
 
 
-    const error = useSelector<AppStoreType, string | null>((state) => state.register.error);
-    const isFetching = useSelector<AppStoreType, boolean>((state) => state.register.isFetching);
+    // const error = useSelector<AppStoreType, string | null>((state) => state.register.error);
+    // const isFetching = useSelector<AppStoreType, boolean>((state) => state.register.isFetching);
 
     const onClickHandler = useCallback(() => {
         dispatch(onClickLoginThunk(email, password, checked));
     }, [email, password, checked]);
 
-    const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.register.isRegistred);
+
     if (isLoggedIn) {
-        return <Redirect to={"/Profile"}/>;
+        console.log('redirect to profile')
+        return <Redirect to={"/profile"} />;
     }
 
 
     return (
         <>
-            {isFetching ? <Preloader/> : null}
+            {/*{isFetching ? <Preloader/> : null}*/}
             <div className={s.container}>
                 <div className={s.form}>
                     <input
                         className={s.inputs}
-                        type='email'
+                        type={'email'}
                         value={email}
                         placeholder={"email"}
                         onChange={setEmailHandle}
@@ -76,18 +82,18 @@ export const Login = () => {
 
                     <input
                         className={s.inputs}
-                        type='password'
+                        type={'password'}
                         value={password}
                         placeholder={"password"}
                         onBlur={setPasswordError}
                         onChange={setPasswordHandle}/>
-                    {error && <span className={s.error}>{error}</span>}
+                    {/*{error && <span className={s.error}>{error}</span>}*/}
                     {errorPasswordMessage && <span className={s.error}>{errorPasswordMessage}</span>}
 
                     <SuperCheckbox checked={checked}
                                    onChangeChecked={setChecked}/>
                      <div className={s.btn_wrap}>
-                    <SuperButton className={s.singlIn_btn}
+                    <SuperButton className={s.register_btn}
                         onClick={onClickHandler}>Sign in</SuperButton>
                      </div>
             </div>

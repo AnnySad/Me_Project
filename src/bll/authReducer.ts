@@ -28,10 +28,9 @@ export const setUserData = (payload: initialStateType) => ({ type: "SET-USER-DAT
 //thunk
 
 export const authThunk = () => (dispatch: Dispatch) => {
-  authAPI.authMe().then((res) => {
+  return authAPI.authMe().then((res) => {
     let { _id, name, email } = res.data;
     dispatch(setUserData({ _id, name, email, isAuth: true }));
-    console.log("payload: ", { _id, name, email });
   });
 };
 
