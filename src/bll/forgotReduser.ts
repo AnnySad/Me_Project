@@ -6,6 +6,7 @@ const initState = {
   error: null as null | string,
   isFetching: false,
   isNewPasswordSet: false,
+  delete: null,
 };
 
 export const forgotReducer = (state: initialStateType = initState, action: ActionsType): typeof initState => {
@@ -51,6 +52,20 @@ export const forgotThunk = (email: string, from: string) => (dispatch: Dispatch)
       dispatch(setError(error));
     });
 };
+
+// export const setNewPasswordThunk = (password: string, resetPasswordToken: string) => (dispatch: Dispatch) => {
+//   dispatch(toggleIsFetching(true));
+//   API.setNewPassword(password, resetPasswordToken)
+//     .then((res) => {
+//       dispatch(toggleIsFetching(false));
+//       dispatch(isNewPasswordSet(true));
+//     })
+//     .catch((err) => {
+//       dispatch(toggleIsFetching(false));
+//       const error = err.response ? err.response.data.error : err.message + "some error";
+//       dispatch(setError(error));
+//     });
+// };
 
 export const setNewPasswordThunk = (password: string, resetPasswordToken: string) => (dispatch: Dispatch) => {
   dispatch(toggleIsFetching(true));

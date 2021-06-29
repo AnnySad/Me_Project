@@ -18,6 +18,8 @@ function EnteringNewPassword() {
     setPassword(e.currentTarget.value);
   };
 
+  const delet_this_const = "delete";
+
   const setPasswordError = () => {
     if (password !== confirmPassword || password.length !== confirmPassword.length) {
       setErrorPasswordMessage("Password mismatch");
