@@ -6,10 +6,7 @@ const initState = {
   error: null as null | string,
   isFetching: false,
   isNewPasswordSet: false,
-  delete: null,
-  ggg: null,
-  fff: "",
-  jjjj: "jjj",
+  fff: "ddd",
 };
 
 export const forgotReducer = (state: initialStateType = initState, action: ActionsType): typeof initState => {
