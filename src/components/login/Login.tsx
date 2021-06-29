@@ -11,16 +11,12 @@ import {onClickLoginThunk} from "../../bll/loginReducer";
 export const Login = () => {
 
     const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.login.isLogined);
-    console.log('isLoggedIn = ', isLoggedIn)
     const [email, setEmail] = useState("cheptsova.liza@mail.ru")
     const [password, setPassword] = useState("11111111")
     const [checked, setChecked] = useState(false)
     const [errorEmailMessage, setErrorEmailMessage] = useState<string | null>(null);
     const [errorPasswordMessage, setErrorPasswordMessage] = useState<string | null>(null);
 
-    // useEffect(() => {
-    //     if(isLoggedIn) return
-    // },[])
 
     const dispatch = useDispatch();
     const setEmailHandle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +57,6 @@ export const Login = () => {
 
 
     if (isLoggedIn) {
-        console.log('redirect to profile')
         return <Redirect to={"/profile"} />;
     }
 
