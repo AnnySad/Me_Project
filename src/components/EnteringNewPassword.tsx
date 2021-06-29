@@ -19,6 +19,8 @@ function EnteringNewPassword() {
   };
 
   const delet_this_const = "delete";
+  const delete11 = "delete2";
+  const ggg = "ggg";
 
   const setPasswordError = () => {
     if (password !== confirmPassword || password.length !== confirmPassword.length) {
