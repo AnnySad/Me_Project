@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:7542/2.0/",
+  // baseURL: "http://localhost:7542/2.0/",
+  baseURL: "https://neko-back.herokuapp.com/2.0",
   withCredentials: true,
 });
 const message = `<div style="background-color: lime; padding: 15px">	
@@ -9,15 +10,16 @@ const message = `<div style="background-color: lime; padding: 15px">
 	<a href='http://localhost:3000/#/set-new-password/$token$'>
 	link</a></div>`;
 
+console.log(message);
+
 // api
 export const API = {
-  
   createLogin(payload: any) {
     return instance.post<any>("auth/login", payload);
   },
 
   logout() {
-    return instance.delete<any>('auth/me')
+    return instance.delete<any>("auth/me");
   },
 
   checkIn(email: string, password: string) {
