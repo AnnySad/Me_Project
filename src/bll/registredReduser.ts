@@ -2,25 +2,23 @@ import { Dispatch } from "redux";
 import { API } from "../api/api";
 
 const initState = {
-  email: "",
-  password: "",
-  isRegistred: false,
+  isRegistered: false,
   error: null as null | string,
   isFetching: false,
 };
 
 export const registredReducer = (state: initialStateType = initState, action: ActionsType): typeof initState => {
   switch (action.type) {
-    case "REGISTRED": {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    }
+
     case "SET-ERROR":
       return {
         ...state,
         error: action.error,
+      };
+    case "SET-IS-REGISTERED":
+      return {
+        ...state,
+        isRegistered: action.isRegistered,
       };
 
     case "TOGGLE_IS_FETCHING":
@@ -34,12 +32,16 @@ export const registredReducer = (state: initialStateType = initState, action: Ac
 };
 
 //actions
-export const registredAC = (payload: SetRegisterUser) => ({ type: "REGISTRED", payload } as const);
 export const setError = (error: string | null) => ({ type: "SET-ERROR", error } as const);
 export const toggleIsFetching = (isFetching: boolean) =>
   ({
     type: "TOGGLE_IS_FETCHING",
     isFetching,
+  } as const);
+export const setIsRegistered = (isRegistered: boolean) =>
+  ({
+    type: "SET-IS-REGISTERED",
+    isRegistered,
   } as const);
 
 //thunk
@@ -49,8 +51,7 @@ export const checkInThunk = (email: string, password: string) => (dispatch: Disp
   API.checkIn(email, password)
     .then((res) => {
       dispatch(toggleIsFetching(false));
-      dispatch(registredAC({ email, password, isRegistred: true }));
-      console.log(res);
+      dispatch(setIsRegistered(true));
     })
     .catch((err) => {
       dispatch(toggleIsFetching(false));
@@ -60,12 +61,8 @@ export const checkInThunk = (email: string, password: string) => (dispatch: Disp
 };
 
 //types
-type ActionsType = ReturnType<typeof registredAC> | ReturnType<typeof setError> | ReturnType<typeof toggleIsFetching>;
+type ActionsType = ReturnType<typeof setError> | ReturnType<typeof toggleIsFetching> |
+    ReturnType<typeof setIsRegistered>
 
 type initialStateType = typeof initState;
 
-type SetRegisterUser = {
-  email: string;
-  password: string;
-  isRegistred: boolean;
-};

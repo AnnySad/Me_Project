@@ -1,14 +1,14 @@
 import React from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Error404 from "../404/Error404";
-import {Login} from "../login/Login";
 import CheckIn from "../CheckIn";
 import PasswordRecovery from "../PasswordRecovery";
 import Profile from "../Profile";
 import EnteringNewPassword from "../EnteringNewPassword";
 import Testing from "../Testing";
-import {Registred} from "./../registred/Registred";
 import {Forgot} from "../forgot/Forgot";
+import {Login} from "../login/Login";
+import Registered from "../registred/Registered";
 
 export const PATH = {
     LOGIN: "/login",
@@ -30,7 +30,7 @@ function Routes() {
             <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
 
             <Route path={PATH.LOGIN} render={() => <Login/>}/>
-            <Route path={PATH.REGISTRED} render={() => <Registred/>}/>
+            <Route path={PATH.REGISTRED} render={() => <Registered/>}/>
             <Route path={PATH.FORGOT} render={() => <Forgot/>}/>
             <Route path={PATH.PROFILE} render={() => <Profile/>}/>
             <Route path={PATH.TESTING} render={() => <Testing/>}/>
