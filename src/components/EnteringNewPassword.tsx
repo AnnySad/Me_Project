@@ -22,6 +22,7 @@ function EnteringNewPassword() {
   const delete11 = "delete2";
   const ggg = "ggg";
   const fff = "ggg";
+  const hhh = "jjj";
 
   const setPasswordError = () => {
     if (password !== confirmPassword || password.length !== confirmPassword.length) {

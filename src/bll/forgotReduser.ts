@@ -9,6 +9,7 @@ const initState = {
   delete: null,
   ggg: null,
   fff: "",
+  jjjj: "jjj",
 };
 
 export const forgotReducer = (state: initialStateType = initState, action: ActionsType): typeof initState => {
