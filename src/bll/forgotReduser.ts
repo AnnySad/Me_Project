@@ -8,6 +8,7 @@ const initState = {
   isNewPasswordSet: false,
   delete: null,
   ggg: null,
+  fff: "",
 };
 
 export const forgotReducer = (state: initialStateType = initState, action: ActionsType): typeof initState => {
