@@ -103,9 +103,13 @@
   color: red;
   font-size: 14px;
 }
+.block{
+  text-align: center;
+}
 
 @media (max-width: 420px) {
   .cancel_btn {
     margin-bottom: 20px;
   }
 }
+
