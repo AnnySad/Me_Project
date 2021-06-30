@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkInThunk } from "../../bll/registredReduser";
 import { useCallback } from "react";
 import { AppStoreType } from "../../bll/store";
-import { Redirect } from "react-router-dom";
-import { Preloader } from "./../Preloader/Preloader";
+import { Preloader } from "../Preloader/Preloader";
 import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
 
  const Registered = () => {
@@ -73,7 +72,7 @@ import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
             onBlur={setPasswordError}
             placeholder={"Confirm password"}
           />
-          {error && <span className={s.error}>{error}</span>}
+            {error && <span className={s.error}>{error}</span>}
           {errorPasswordMessage && <span className={s.error}>{errorPasswordMessage}</span>}
 
           <div className={s.btn_wrap}>
