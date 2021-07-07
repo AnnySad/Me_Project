@@ -63,11 +63,11 @@ export const packsAPI = {
 };
 
 export const cardsAPI = {
-  getCards() {
+  getCards(cardsPack_id:string) {
     return instance.get("cards/card", {
       params: {
         // cardsPack_id: "5faa9ec57247822b58a8cae2",
-        cardsPack_id: "60e46dd555edaa0004c7e110",
+        cardsPack_id: cardsPack_id,
         // cardsPack_id: "5eb6a2f72f849402d46c6ac7",\
         page: 1,
         pageCount: 7,

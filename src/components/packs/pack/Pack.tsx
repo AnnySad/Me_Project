@@ -17,8 +17,8 @@ export const Pack = (props: PropsType) => {
 
   let history = useHistory();
 
-  function handleClick() {
-    history.push("/cards");
+  function handleClick(id: string) {
+    history.push(`/cards/${id}`);
   }
 
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +55,8 @@ export const Pack = (props: PropsType) => {
             value={newTitle}
           />
         ) : (
-          <span onClick={handleClick}>
-            {props.pack.name} {props.pack.cardsCount} {props.pack._id}
+          <span onClick={() => handleClick(props.pack._id)}>
+            {props.pack.name} {props.pack.cardsCount} {`ID=>`} {props.pack._id}
           </span>
         )}
       </div>

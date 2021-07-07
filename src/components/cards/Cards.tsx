@@ -4,6 +4,7 @@ import { CardsType } from "../../api/api";
 import { addNewCard, fetchCardsThunk } from "../../bll/cardsReducer";
 import { AppStoreType } from "../../bll/store";
 import { AddNewCard } from "./add-new-card-modal/AddNewCard";
+import {useParams} from "react-router-dom";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,9 @@ export const Cards = () => {
   }, [dispatch]);
 
   const [editMode, setEditMode] = useState(false);
+
+  let {id} = useParams<{id: string}>()
+  console.log(id)
 
   let addNewCards = useCallback(
     (cardsPack_id: string, question: string, answer: string) => {
@@ -31,7 +35,7 @@ export const Cards = () => {
         <input type="search" />
         <button onClick={addCardsHandle}>add new card</button>
       </div>
-      {editMode && <AddNewCard addCard={addNewCards} />}
+      {editMode && <AddNewCard addCard={addNewCards} id={id} />}
       {cards.map((c) => {
         return (
           <div key={c._id}>
