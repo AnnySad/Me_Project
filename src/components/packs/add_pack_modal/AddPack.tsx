@@ -17,9 +17,6 @@ export const AddPack = (props: PropsType) => {
       props.addPack(packTitle);
       setPackTitle("");
     }
-    // } else {
-    //   setError("Title is required");
-    // }
   };
 
   const addPackOnKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {

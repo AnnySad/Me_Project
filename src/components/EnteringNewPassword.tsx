@@ -18,7 +18,6 @@ function EnteringNewPassword() {
     setPassword(e.currentTarget.value);
   };
 
-
   const setPasswordError = () => {
     if (password !== confirmPassword || password.length !== confirmPassword.length) {
       setErrorPasswordMessage("Password mismatch");
@@ -38,7 +37,7 @@ function EnteringNewPassword() {
 
   const onSubmitForm = useCallback(() => {
     dispatch(setNewPasswordThunk(password, token));
-  }, [password, token]);
+  }, [dispatch, password, token]);
 
   const isNewPasswordSet = useSelector<AppStoreType, boolean>((state) => state.forgot.isNewPasswordSet);
   if (isNewPasswordSet) {
@@ -51,14 +50,14 @@ function EnteringNewPassword() {
         <div className={s.form}>
           <h3>Set new password</h3>
           <input
-            type='password'
+            type="password"
             className={s.inputs}
             value={password}
             onChange={setPasswordHandle}
             placeholder={"Password"}
           />
           <input
-            type='password'
+            type="password"
             className={s.inputs}
             value={confirmPassword}
             onChange={setConfirmPassHandle}

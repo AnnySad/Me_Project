@@ -8,6 +8,9 @@ export const cardsReducer = (state: any = initialState, action: ActionsType) => 
     case "SET-CARDS": {
       return action.cards;
     }
+    case "ADD-NEW-CARD": {
+      return [...action.cards, ...state];
+    }
     default:
       return state;
   }
@@ -15,7 +18,7 @@ export const cardsReducer = (state: any = initialState, action: ActionsType) => 
 
 //actions
 const setCards = (cards: Array<CardsType>) => ({ type: "SET-CARDS", cards } as const);
-// const addNewCards = (cards: cards: Array<CardsType>)
+const addNewCards = (cards: Array<CardsType>) => ({ type: "ADD-NEW-CARD", cards } as const);
 
 //thunk
 export const fetchCardsThunk = () => (dispatch: Dispatch) => {
@@ -24,6 +27,12 @@ export const fetchCardsThunk = () => (dispatch: Dispatch) => {
   });
 };
 
+export const addNewCard = (cardsPack_id: string, question: string, answer: string) => (dispatch: Dispatch) => {
+  cardsAPI.addNewCard(cardsPack_id, question, answer).then((res) => {
+    dispatch(addNewCards([res.data.newCard]));
+  });
+};
+
 //types
 
-type ActionsType = ReturnType<typeof setCards>;
+type ActionsType = ReturnType<typeof setCards> | ReturnType<typeof addNewCards>;
