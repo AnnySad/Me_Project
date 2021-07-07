@@ -18,6 +18,7 @@ function EnteringNewPassword() {
     setPassword(e.currentTarget.value);
   };
 
+
   const setPasswordError = () => {
     if (password !== confirmPassword || password.length !== confirmPassword.length) {
       setErrorPasswordMessage("Password mismatch");

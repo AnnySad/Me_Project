@@ -29,15 +29,21 @@ function Header() {
         <NavLink to={PATH.PROFILE} className={s.link} activeClassName={s.activeLink}>
           profile
         </NavLink>
+        <NavLink to={PATH.PACKS} className={s.link} activeClassName={s.activeLink}>
+          packs
+        </NavLink>
+        <NavLink to={PATH.CARDS} className={s.link} activeClassName={s.activeLink}>
+          cards
+        </NavLink>
         {/* <NavLink to={PATH.TESTING} className={s.link}>
           testing
         </NavLink>
         <NavLink to={PATH.PASSWORD_RECOVERY} className={s.link}>
           password-recovery
         </NavLink> */}
-        {/* <NavLink to={PATH.ENTERING_NEW_PASSWORD} className={s.link} activeClassName={s.activeLink}>
-          entering-new-password
-        </NavLink> */}
+        {/*<NavLink to={PATH.ENTERING_NEW_PASSWORD} className={s.link} activeClassName={s.activeLink}>*/}
+        {/*  entering-new-password*/}
+        {/*</NavLink>*/}
       </nav>
     </div>
   );
