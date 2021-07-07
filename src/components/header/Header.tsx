@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import {NavLink, Redirect} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { PATH } from "../routes/Routes.";
 import s from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +11,6 @@ function Header() {
   const logoutHandler = () => {
     dispatch(logOutTC());
   };
-
 
   return (
     <div className={s.menuWrapper}>

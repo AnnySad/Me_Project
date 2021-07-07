@@ -47,17 +47,7 @@ export const Packs = () => {
       </div>
       {editMode && <AddPack addPack={addNewPackHandle} />}
       {packs.map((p) => {
-        return (
-          <Pack key={p._id} pack={p} removePack={removePack} addNewTite={addNewPackTitle} />
-          // <div>
-          //   <div key={p._id}>{p.name}</div>
-          //   <div>
-          //     <button onClick={removePack}>Delete</button>
-          //     <button>Edit</button>
-          //     <button>Learn</button>
-          //   </div>
-          // </div>
-        );
+        return <Pack key={p._id} pack={p} removePack={removePack} addNewTite={addNewPackTitle} />;
       })}
     </>
   );

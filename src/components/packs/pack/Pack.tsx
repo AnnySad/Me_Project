@@ -1,4 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { CardPacksType } from "../../../api/api";
 
 type PropsType = {
@@ -10,22 +11,19 @@ type PropsType = {
 export const Pack = (props: PropsType) => {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(props.pack.name);
-  console.log("newTitle ", newTitle);
   const removePackHandler = useCallback(() => {
     props.removePack(props.pack._id);
   }, [props]);
 
+  let history = useHistory();
+
+  function handleClick() {
+    history.push("/cards");
+  }
+
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.currentTarget.value);
   };
-
-  // const addNewTitle = useCallback(
-  //   (newTitle: string) => {
-  //     props.addNewTite(props.pack._id, newTitle);
-  //   },
-  //   // [props.id, props.newTodolistTitle, props]
-  //   [props]
-  // );
 
   const activeViewMode = () => {
     setEditMode(!editMode);
@@ -40,7 +38,7 @@ export const Pack = (props: PropsType) => {
     }
   };
 
-  const onDblClickHandler = () => {
+  const onClickHandler = () => {
     setEditMode(!editMode);
     setNewTitle(props.pack.name);
   };
@@ -57,14 +55,14 @@ export const Pack = (props: PropsType) => {
             value={newTitle}
           />
         ) : (
-          <span onDoubleClick={onDblClickHandler}>
+          <span onClick={handleClick}>
             {props.pack.name} {props.pack.cardsCount} {props.pack._id}
           </span>
         )}
       </div>
       <div>
         <button onClick={removePackHandler}>Delete</button>
-        <button>Edit</button>
+        <button onClick={onClickHandler}>Edit</button>
         <button>Learn</button>
       </div>
     </div>
