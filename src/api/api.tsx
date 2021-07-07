@@ -40,12 +40,12 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks() {
+  getPacks(page: number, pageCount: number) {
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
-        page: 45,
-        pageCount: 30,
-        user_id: "60d6d56dd5086f000458d12f",
+        page: page,
+        pageCount: pageCount,
+        // user_id: "60d6d56dd5086f000458d12f",
       },
     });
   },
@@ -63,7 +63,8 @@ export const packsAPI = {
 };
 
 export const cardsAPI = {
-  getCards(cardsPack_id:string) {
+  getCards(cardsPack_id: string) {
+    console.log('cardsPack_id', cardsPack_id)
     return instance.get("cards/card", {
       params: {
         // cardsPack_id: "5faa9ec57247822b58a8cae2",

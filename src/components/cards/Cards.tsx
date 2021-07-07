@@ -9,14 +9,13 @@ import {useParams} from "react-router-dom";
 export const Cards = () => {
   const dispatch = useDispatch();
   const cards = useSelector<AppStoreType, Array<CardsType>>((state) => state.cards);
+  let {id} = useParams<{id: string}>()
+
   useEffect(() => {
-    dispatch(fetchCardsThunk());
+    dispatch(fetchCardsThunk(id));
   }, [dispatch]);
 
   const [editMode, setEditMode] = useState(false);
-
-  let {id} = useParams<{id: string}>()
-  console.log(id)
 
   let addNewCards = useCallback(
     (cardsPack_id: string, question: string, answer: string) => {

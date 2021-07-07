@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { PATH } from "../routes/Routes.";
+import { PATH } from "../routes/Routes";
 import s from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStoreType } from "../../bll/store";

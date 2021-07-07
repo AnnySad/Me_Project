@@ -21,7 +21,7 @@ const setCards = (cards: Array<CardsType>) => ({ type: "SET-CARDS", cards } as c
 const addNewCards = (cards: Array<CardsType>) => ({ type: "ADD-NEW-CARD", cards } as const);
 
 //thunk
-export const fetchCardsThunk = (cardsPack_id?: any) => (dispatch: Dispatch) => {
+export const fetchCardsThunk = (cardsPack_id: any) => (dispatch: Dispatch) => {
   cardsAPI.getCards(cardsPack_id).then((res) => {
     dispatch(setCards(res.data.cards));
   });
