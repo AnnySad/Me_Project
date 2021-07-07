@@ -9,5 +9,6 @@ body {
 
 .App {
   height: 100vh;
+  padding: 0 20px;
   background: linear-gradient(0deg, rgba(152, 144, 199, 1) 0%, rgba(230, 212, 222, 1) 100%);
 }
