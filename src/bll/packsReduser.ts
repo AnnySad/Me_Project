@@ -6,50 +6,50 @@ import { CardPacksType, packsAPI } from "../api/api";
 const initialState = {
   packs: [] as Array<CardPacksType>,
   page: 1,
-  pageCount: 20,
-  cardPackTotalCount: 100
-}
+  pageCount: 10,
+  cardPackTotalCount: 100,
+};
 
-type initialStateType = typeof initialState
+type initialStateType = typeof initialState;
 
 export const packsReducer = (state = initialState, action: ActionsType): initialStateType => {
   switch (action.type) {
     case "SET-PACKS": {
       return {
         ...state,
-        packs: [...action.packs]
-      }
+        packs: [...action.packs],
+      };
     }
     case "ADD-PACK-TITLE": {
       return {
         ...state,
-        packs: [...action.packs, ...state.packs]
-      }
+        packs: [...action.packs, ...state.packs],
+      };
     }
     case "REMOVE-PACK": {
       return {
         ...state,
-        packs: state.packs.filter((p) => p._id !== action.id)
-      }
+        packs: state.packs.filter((p) => p._id !== action.id),
+      };
     }
     case " UPDATED-CARDS-PACK": {
       let newPackTitle = state.packs.find((p) => p._id === action.id);
       if (newPackTitle) {
         newPackTitle.name = action.title;
       }
-      return {...state};
+      return { ...state };
     }
     case "SET-PAGE": {
       return {
         ...state,
-        page: action.page
-      }
+        page: action.page,
+      };
     }
     case "SET-CARD-PACK-TOTAL-COUNT": {
       return {
         ...state,
-        cardPackTotalCount: action.cardPackTotalCount
-      }
+        cardPackTotalCount: action.cardPackTotalCount,
+      };
     }
     default:
       return state;
@@ -61,8 +61,9 @@ const setPacks = (packs: Array<CardPacksType>) => ({ type: "SET-PACKS", packs } 
 const addPackTitle = (packs: any) => ({ type: "ADD-PACK-TITLE", packs } as const);
 const removePack = (id: string) => ({ type: "REMOVE-PACK", id } as const);
 const updatedCardsPack = (id: string, title: string) => ({ type: " UPDATED-CARDS-PACK", id, title } as const);
-const setPage = (page: number) => ({ type: "SET-PAGE", page} as const);
-const  setCardPackTotalCount = (cardPackTotalCount: number) => ({ type: "SET-CARD-PACK-TOTAL-COUNT", cardPackTotalCount} as const)
+const setPage = (page: number) => ({ type: "SET-PAGE", page } as const);
+const setCardPackTotalCount = (cardPackTotalCount: number) =>
+  ({ type: "SET-CARD-PACK-TOTAL-COUNT", cardPackTotalCount } as const);
 
 //thunk
 export const fetchPacksThunk = (page: number, pageCount: number) => (dispatch: Dispatch) => {
@@ -71,7 +72,7 @@ export const fetchPacksThunk = (page: number, pageCount: number) => (dispatch: D
     .then((res) => {
       dispatch(setPacks(res.data.cardPacks));
       dispatch(setPage(page));
-      dispatch(setCardPackTotalCount(pageCount));
+      dispatch(setCardPackTotalCount(res.data.cardPacksTotalCount));
     })
     .catch((error) => {
       console.log(error);

@@ -49,6 +49,13 @@ export const packsAPI = {
       },
     });
   },
+
+  // getPacks(page: number, pageCount: number) {
+  //   console.log("page", page);
+  //   console.log("pageCount", pageCount);
+  //   return instance.get<ResponceType<Array<CardPacksType>>>(`cards/pack?page=${page}&pageCount=${pageCount}`);
+  // },
+
   addNewPack(title: string) {
     return instance.post("cards/pack", { cardsPack: { name: title } });
   },
@@ -64,12 +71,9 @@ export const packsAPI = {
 
 export const cardsAPI = {
   getCards(cardsPack_id: string) {
-    console.log('cardsPack_id', cardsPack_id)
     return instance.get("cards/card", {
       params: {
-        // cardsPack_id: "5faa9ec57247822b58a8cae2",
         cardsPack_id: cardsPack_id,
-        // cardsPack_id: "5eb6a2f72f849402d46c6ac7",\
         page: 1,
         pageCount: 7,
       },

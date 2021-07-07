@@ -5,9 +5,9 @@ import { checkInThunk } from "../../bll/registredReduser";
 import { useCallback } from "react";
 import { AppStoreType } from "../../bll/store";
 import { Preloader } from "../Preloader/Preloader";
-import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
+import { AuthRedirectComponent } from "../../hoc/AuthRedirectComponent";
 
- const Registered = () => {
+const Registered = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -51,9 +51,7 @@ import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
 
   const onSubmitForm = useCallback(() => {
     dispatch(checkInThunk(email, password));
-  }, [email, password]);
-
-
+  }, [email, password, dispatch]);
 
   return (
     <>
@@ -61,18 +59,31 @@ import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
       <div className={s.container}>
         <div className={s.form}>
           <h3>Sing up</h3>
-          <input type='email' className={s.inputs} value={email} onChange={setEmailHandle} onBlur={setEmailError} placeholder={"Email"} />
-          {errorEmailMessage && <span className={s.error}>{errorEmailMessage}</span>}
-          <input type='password' className={s.inputs} value={password} onChange={setPasswordHandle} placeholder={"Password"} />
           <input
-            type='password'
+            type="email"
+            className={s.inputs}
+            value={email}
+            onChange={setEmailHandle}
+            onBlur={setEmailError}
+            placeholder={"Email"}
+          />
+          {errorEmailMessage && <span className={s.error}>{errorEmailMessage}</span>}
+          <input
+            type="password"
+            className={s.inputs}
+            value={password}
+            onChange={setPasswordHandle}
+            placeholder={"Password"}
+          />
+          <input
+            type="password"
             className={s.inputs}
             value={confirmPassword}
             onChange={setConfirmPassHandle}
             onBlur={setPasswordError}
             placeholder={"Confirm password"}
           />
-            {error && <span className={s.error}>{error}</span>}
+          {error && <span className={s.error}>{error}</span>}
           {errorPasswordMessage && <span className={s.error}>{errorPasswordMessage}</span>}
 
           <div className={s.btn_wrap}>
@@ -87,5 +98,4 @@ import {AuthRedirectComponent} from "../../hoc/AuthRedirectComponent";
   );
 };
 
-
-export default  AuthRedirectComponent(Registered)
+export default AuthRedirectComponent(Registered);

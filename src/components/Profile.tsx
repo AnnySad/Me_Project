@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { authAPI } from "../api/api";
+import { useEffect } from "react";
 import { authThunk } from "../bll/authReducer";
 import { useDispatch } from "react-redux";
 import { AuthRedirectComponent } from "../hoc/AuthRedirectComponent";
@@ -8,9 +7,8 @@ function Profile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // authAPI.authMe().then((res) => console.log(res));
     dispatch(authThunk());
-  }, []);
+  }, [dispatch]);
 
   return <div>Profile</div>;
 }

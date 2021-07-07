@@ -1,9 +1,8 @@
-import { ChangeEvent, useState } from "react";
-
+import { ChangeEvent, useCallback, useState } from "react";
+import { addNewCard } from "../../../bll/cardsReducer";
 
 type PropsType = {
-  addCard: (cardsPack_id: string, question: string, answer: string) => void;
-  id: string
+  id: string;
 };
 
 export const AddNewCard = (props: PropsType) => {
@@ -17,11 +16,16 @@ export const AddNewCard = (props: PropsType) => {
     setAnswer(e.currentTarget.value);
   };
 
+  let addNewCards = useCallback(
+    (question: string, answer: string) => {
+      dispatch(addNewCard(props.id, question, answer));
+    },
+    [props.id]
+  );
+
   const addCardHandler = () => {
     if (question.trim() !== "" && answer.trim() !== "") {
-      // props.addCard("60e46dd555edaa0004c7e110", question, answer);
-      // props.addCard("60e46dd555edaa0004c7e110", question, answer);
-      props.addCard(props.id, question, answer);
+      addNewCards(question, answer);
     }
   };
 
@@ -38,3 +42,6 @@ export const AddNewCard = (props: PropsType) => {
     </div>
   );
 };
+function dispatch(arg0: (dispatch: import("redux").Dispatch<import("redux").AnyAction>) => void) {
+  throw new Error("Function not implemented.");
+}

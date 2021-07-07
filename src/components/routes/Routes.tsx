@@ -20,8 +20,8 @@ export const PATH = {
   PASSWORD_RECOVERY: "/password-recovery",
   ENTERING_NEW_PASSWORD: "/set-new-password/:token",
   FORGOT: "/forgot",
-  PACKS: "/packs/:id",
-  CARDS: "/cards",
+  PACKS: "/packs/",
+  CARDS: "/cards/:id",
 };
 
 function Routes() {
