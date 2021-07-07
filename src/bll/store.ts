@@ -5,12 +5,16 @@ import { registredReducer } from "./registredReduser";
 import { forgotReducer } from "./forgotReduser";
 import { authReducer } from "./authReducer";
 import {loginReducer} from "./loginReducer";
+import {packsReducer} from "./packsReduser";
+import {cardsReducer} from "./cardsReducer";
 
 const reducers = combineReducers({
   register: registredReducer,
   forgot: forgotReducer,
   auth: authReducer,
-  login: loginReducer
+  login: loginReducer,
+  packs: packsReducer,
+  cards: cardsReducer,
 })
 
 const store = createStore(reducers, applyMiddleware(thunk));

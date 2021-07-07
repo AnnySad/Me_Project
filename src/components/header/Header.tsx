@@ -29,6 +29,12 @@ function Header() {
         <NavLink to={PATH.PROFILE} className={s.link} activeClassName={s.activeLink}>
           profile
         </NavLink>
+        <NavLink to={PATH.PACKS} className={s.link} activeClassName={s.activeLink}>
+          packs
+        </NavLink>
+        <NavLink to={PATH.CARDS} className={s.link} activeClassName={s.activeLink}>
+          cards
+        </NavLink>
         {/* <NavLink to={PATH.TESTING} className={s.link}>
           testing
         </NavLink>
