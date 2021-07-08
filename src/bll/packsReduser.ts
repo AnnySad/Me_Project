@@ -8,6 +8,7 @@ const initialState = {
   page: 1,
   pageCount: 10,
   cardPackTotalCount: 100,
+  packsName: ''
 };
 
 type initialStateType = typeof initialState;
@@ -51,10 +52,18 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
         cardPackTotalCount: action.cardPackTotalCount,
       };
     }
+    case 'SET-FILTER-PACKS-NAME': {
+      return {
+        ...state,
+        packsName: action.name
+      };
+    }
     default:
       return state;
   }
 };
+
+
 
 //actions
 const setPacks = (packs: Array<CardPacksType>) => ({ type: "SET-PACKS", packs } as const);
@@ -62,16 +71,18 @@ const addPackTitle = (packs: any) => ({ type: "ADD-PACK-TITLE", packs } as const
 const removePack = (id: string) => ({ type: "REMOVE-PACK", id } as const);
 const updatedCardsPack = (id: string, title: string) => ({ type: " UPDATED-CARDS-PACK", id, title } as const);
 const setPage = (page: number) => ({ type: "SET-PAGE", page } as const);
+export const setFilterPacksName = (name: string) => ({ type: "SET-FILTER-PACKS-NAME", name } as const);
 const setCardPackTotalCount = (cardPackTotalCount: number) =>
   ({ type: "SET-CARD-PACK-TOTAL-COUNT", cardPackTotalCount } as const);
 
 //thunk
-export const fetchPacksThunk = (page: number, pageCount: number) => (dispatch: Dispatch) => {
+export const fetchPacksThunk = (page: number, pageCount: number, packName?: string) => (dispatch: Dispatch) => {
   packsAPI
-    .getPacks(page, pageCount)
+    .getPacks(page, pageCount, packName)
     .then((res) => {
       dispatch(setPacks(res.data.cardPacks));
       dispatch(setPage(page));
+      // dispatch(setFilterPacksName(packName));
       dispatch(setCardPackTotalCount(res.data.cardPacksTotalCount));
     })
     .catch((error) => {
@@ -103,4 +114,7 @@ type ActionsType =
   | ReturnType<typeof removePack>
   | ReturnType<typeof updatedCardsPack>
   | ReturnType<typeof setCardPackTotalCount>
+  | ReturnType<typeof setFilterPacksName>
   | ReturnType<typeof setPage>;
+
+export type setPacksType = ReturnType<typeof setPacks>
