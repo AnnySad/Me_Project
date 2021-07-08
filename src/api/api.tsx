@@ -40,23 +40,18 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks(page: number, pageCount: number, packName?: string) {
+  getPacks(page: number, pageCount: number, packName?: string, sortPacks?:string) {
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
         pageCount: pageCount,
-        // sortPacks: sortPacks,
-        packName: packName
+        sortPacks: sortPacks,
+        packName: packName,
         // user_id: "60d6d56dd5086f000458d12f",
       },
     });
   },
 
-  // getPacks(page: number, pageCount: number) {
-  //   console.log("page", page);
-  //   console.log("pageCount", pageCount);
-  //   return instance.get<ResponceType<Array<CardPacksType>>>(`cards/pack?page=${page}&pageCount=${pageCount}`);
-  // },
 
   addNewPack(title: string) {
     return instance.post("cards/pack", { cardsPack: { name: title } });
@@ -77,8 +72,9 @@ export const cardsAPI = {
       params: {
         cardsPack_id: cardsPack_id,
         page: 1,
-        pageCount: 7,
-      },
+        pageCount: 7, // не обязательно
+
+    },
     });
   },
   addNewCard(cardsPack_id: string, question: string, answer: string) {
@@ -110,6 +106,7 @@ export type CardPacksType = {
   created?: string;
   updated?: string;
   __v?: number;
+  sortPack?: string
 };
 
 export type CardsType = {

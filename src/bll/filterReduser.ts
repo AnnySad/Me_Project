@@ -22,6 +22,7 @@ export const filterReducer = (state = initialState, action: ActionsType): initia
     }
 };
 
+//ac
 export const filterPacks= (name: string) => ({ type: "FILTER-PACKS",payload:name } as const);
 
 //th

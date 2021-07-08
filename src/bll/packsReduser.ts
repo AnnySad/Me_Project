@@ -8,7 +8,8 @@ const initialState = {
   page: 1,
   pageCount: 10,
   cardPackTotalCount: 100,
-  packsName: ''
+  packsName: "",
+  sortPack: "",
 };
 
 type initialStateType = typeof initialState;
@@ -58,6 +59,13 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
         packsName: action.name
       };
     }
+
+    case 'SET-SORT-PACKS': {
+      return {
+        ...state,
+        sortPack: action.sortPack
+      };
+    }
     default:
       return state;
   }
@@ -74,11 +82,14 @@ const setPage = (page: number) => ({ type: "SET-PAGE", page } as const);
 export const setFilterPacksName = (name: string) => ({ type: "SET-FILTER-PACKS-NAME", name } as const);
 const setCardPackTotalCount = (cardPackTotalCount: number) =>
   ({ type: "SET-CARD-PACK-TOTAL-COUNT", cardPackTotalCount } as const);
+export const setSortPacks = (sortPack: string) => ({ type: "SET-SORT-PACKS", sortPack } as const);
+
+
 
 //thunk
-export const fetchPacksThunk = (page: number, pageCount: number, packName?: string) => (dispatch: Dispatch) => {
+export const fetchPacksThunk = (page: number, pageCount: number, packName?: string, sortPack?: string) => (dispatch: Dispatch) => {
   packsAPI
-    .getPacks(page, pageCount, packName)
+    .getPacks(page, pageCount, packName, sortPack)
     .then((res) => {
       dispatch(setPacks(res.data.cardPacks));
       dispatch(setPage(page));
@@ -115,6 +126,7 @@ type ActionsType =
   | ReturnType<typeof updatedCardsPack>
   | ReturnType<typeof setCardPackTotalCount>
   | ReturnType<typeof setFilterPacksName>
-  | ReturnType<typeof setPage>;
+  | ReturnType<typeof setPage>
+  | ReturnType<typeof setSortPacks>;
 
 export type setPacksType = ReturnType<typeof setPacks>
