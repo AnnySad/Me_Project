@@ -40,11 +40,13 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks(page: number, pageCount: number) {
+  getPacks(page: number, pageCount: number, packName?: string) {
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
         pageCount: pageCount,
+        // sortPacks: sortPacks,
+        packName: packName
         // user_id: "60d6d56dd5086f000458d12f",
       },
     });
