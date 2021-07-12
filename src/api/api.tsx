@@ -40,7 +40,7 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks(page: number, pageCount: number, packName?: string, sortPacks?:string) {
+  getPacks(page: number, pageCount: number, packName?: string, sortPacks?: string) {
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
@@ -51,7 +51,6 @@ export const packsAPI = {
       },
     });
   },
-
 
   addNewPack(title: string) {
     return instance.post("cards/pack", { cardsPack: { name: title } });
@@ -73,8 +72,7 @@ export const cardsAPI = {
         cardsPack_id: cardsPack_id,
         page: 1,
         pageCount: 7, // не обязательно
-
-    },
+      },
     });
   },
   addNewCard(cardsPack_id: string, question: string, answer: string) {
@@ -96,6 +94,7 @@ export type ResponceType<T = {}> = {
 export type CardPacksType = {
   _id: string;
   user_id: string;
+  user_name?: string;
   name?: string;
   path?: string;
   cardsCount?: number;
@@ -106,7 +105,7 @@ export type CardPacksType = {
   created?: string;
   updated?: string;
   __v?: number;
-  sortPack?: string
+  sortPack?: string;
 };
 
 export type CardsType = {

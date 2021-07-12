@@ -1,6 +1,7 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CardPacksType } from "../../../api/api";
+import s from "../../../table.module.css";
 
 type PropsType = {
   pack: CardPacksType;
@@ -44,8 +45,8 @@ export const Pack = (props: PropsType) => {
   };
 
   return (
-    <div>
-      <div key={props.pack._id}>
+    <>
+      <div className={s.table_line}>
         {editMode ? (
           <input
             onChange={changeTitle}
@@ -55,16 +56,23 @@ export const Pack = (props: PropsType) => {
             value={newTitle}
           />
         ) : (
-          <span onClick={() => handleClick(props.pack._id)}>
-            {props.pack.name} {props.pack.cardsCount} {`ID=>`} {props.pack._id}
-          </span>
+          <div className={s.table_body}>
+            <span>{props.pack.name}</span> <span>{props.pack.cardsCount}</span>
+            <span>{props.pack.user_name}</span>
+          </div>
         )}
+        <div className={s.btns}>
+          <button className={s.delete} onClick={removePackHandler}>
+            Delete
+          </button>
+          <button className={s.edit} onClick={onClickHandler}>
+            Edit
+          </button>
+          <button className={s.learn} onClick={() => handleClick(props.pack._id)}>
+            Learn
+          </button>
+        </div>
       </div>
-      <div>
-        <button onClick={removePackHandler}>Delete</button>
-        <button onClick={onClickHandler}>Edit</button>
-        <button>Learn</button>
-      </div>
-    </div>
+    </>
   );
 };

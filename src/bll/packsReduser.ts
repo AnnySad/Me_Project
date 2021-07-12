@@ -53,25 +53,23 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
         cardPackTotalCount: action.cardPackTotalCount,
       };
     }
-    case 'SET-FILTER-PACKS-NAME': {
+    case "SET-FILTER-PACKS-NAME": {
       return {
         ...state,
-        packsName: action.name
+        packsName: action.name,
       };
     }
 
-    case 'SET-SORT-PACKS': {
+    case "SET-SORT-PACKS": {
       return {
         ...state,
-        sortPack: action.sortPack
+        sortPack: action.sortPack,
       };
     }
     default:
       return state;
   }
 };
-
-
 
 //actions
 const setPacks = (packs: Array<CardPacksType>) => ({ type: "SET-PACKS", packs } as const);
@@ -84,22 +82,22 @@ const setCardPackTotalCount = (cardPackTotalCount: number) =>
   ({ type: "SET-CARD-PACK-TOTAL-COUNT", cardPackTotalCount } as const);
 export const setSortPacks = (sortPack: string) => ({ type: "SET-SORT-PACKS", sortPack } as const);
 
-
-
 //thunk
-export const fetchPacksThunk = (page: number, pageCount: number, packName?: string, sortPack?: string) => (dispatch: Dispatch) => {
-  packsAPI
-    .getPacks(page, pageCount, packName, sortPack)
-    .then((res) => {
-      dispatch(setPacks(res.data.cardPacks));
-      dispatch(setPage(page));
-      // dispatch(setFilterPacksName(packName));
-      dispatch(setCardPackTotalCount(res.data.cardPacksTotalCount));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+export const fetchPacksThunk =
+  (page: number, pageCount: number, packName?: string, sortPack?: string) => (dispatch: Dispatch) => {
+    packsAPI
+      .getPacks(page, pageCount, packName, sortPack)
+      .then((res) => {
+        dispatch(setPacks(res.data.cardPacks));
+        dispatch(setPage(page));
+        // dispatch(setFilterPacksName(packName));
+        dispatch(setCardPackTotalCount(res.data.cardPacksTotalCount));
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
 export const addNewPack = (title: string) => (dispatch: Dispatch) => {
   packsAPI.addNewPack(title).then((res) => {
@@ -129,4 +127,4 @@ type ActionsType =
   | ReturnType<typeof setPage>
   | ReturnType<typeof setSortPacks>;
 
-export type setPacksType = ReturnType<typeof setPacks>
+export type setPacksType = ReturnType<typeof setPacks>;

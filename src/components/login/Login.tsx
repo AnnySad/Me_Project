@@ -6,9 +6,12 @@ import { AppStoreType } from "../../bll/store";
 import { Redirect } from "react-router-dom";
 import s from "./../registred/Registred.module.css";
 import { onClickLoginThunk } from "../../bll/loginReducer";
+import { Preloader } from "../Preloader/Preloader";
 
 export const Login = () => {
   const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.login.isLogined);
+  const error = useSelector<AppStoreType, string | null>((state) => state.register.error);
+  const isFetching = useSelector<AppStoreType, boolean>((state) => state.register.isFetching);
   const [email, setEmail] = useState("cheptsova.liza@mail.ru");
   const [password, setPassword] = useState("11111111");
   const [checked, setChecked] = useState(false);
@@ -39,20 +42,17 @@ export const Login = () => {
     }
   };
 
-  // const error = useSelector<AppStoreType, string | null>((state) => state.register.error);
-  // const isFetching = useSelector<AppStoreType, boolean>((state) => state.register.isFetching);
-
   const onClickHandler = useCallback(() => {
     dispatch(onClickLoginThunk(email, password, checked));
   }, [email, password, checked, dispatch]);
 
   if (isLoggedIn) {
-    return <Redirect to={"/profile"} />;
+    return <Redirect to={"/packs"} />;
   }
 
   return (
     <>
-      {/*{isFetching ? <Preloader/> : null}*/}
+      {isFetching ? <Preloader /> : null}
       <div className={s.container}>
         <div className={s.form}>
           <input
@@ -73,7 +73,7 @@ export const Login = () => {
             onBlur={setPasswordError}
             onChange={setPasswordHandle}
           />
-          {/*{error && <span className={s.error}>{error}</span>}*/}
+          {error && <span className={s.error}>{error}</span>}
           {errorPasswordMessage && <span className={s.error}>{errorPasswordMessage}</span>}
 
           <SuperCheckbox checked={checked} onChangeChecked={setChecked} />

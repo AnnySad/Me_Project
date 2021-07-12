@@ -5,6 +5,7 @@ import { fetchCardsThunk } from "../../bll/cardsReducer";
 import { AppStoreType } from "../../bll/store";
 import { AddNewCard } from "./add-new-card-modal/AddNewCard";
 import { useParams } from "react-router-dom";
+import s from "../../table.module.css";
 
 export const Cards = () => {
   const dispatch = useDispatch();
@@ -21,20 +22,39 @@ export const Cards = () => {
   };
 
   return (
-    <>
-      <div>
-        <input type="search" />
-        <button onClick={addCardsHandle}>add new card</button>
-      </div>
-      {editMode && <AddNewCard id={id} />}
-      {cards.map((c) => {
-        return (
-          <div key={c._id}>
-            <div>{c.question}</div>
-            <div>{c.answer}</div>
+    <div className={s.table_container_card}>
+      <div className={s.table_wrap}>
+        <h4>Cards list</h4>
+        <div className={s.searchbar}>
+          <input type="search" />
+          <button className={s.search_btn}>&#128269;</button>
+          <button className={s.add_btn} onClick={addCardsHandle}>
+            add new card
+          </button>
+        </div>
+
+        <div className={s.table}>
+          {editMode && <AddNewCard id={id} />}
+          <div className={s.table_title + " " + s.table_title_card}>
+            <span>Question</span>
+            <span>Answer</span>
+            {/* <span className={s.sort_btns}>
+              sort
+              <button>&#9650;</button>
+              <button> &#9660;</button>
+            </span> */}
+            <span>Grade</span>
           </div>
-        );
-      })}
-    </>
+          {cards.map((c) => {
+            return (
+              <div key={c._id} className={s.table_body_card + " " + s.table_line_card}>
+                <span>{c.question}</span>
+                <span>{c.answer}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 };

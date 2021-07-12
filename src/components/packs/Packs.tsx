@@ -1,99 +1,128 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {CardPacksType, packsAPI} from "../../api/api";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { CardPacksType } from "../../api/api";
 import {
-    addNewPack,
-    deletePack,
-    fetchPacksThunk,
-    setFilterPacksName,
-    setSortPacks,
-    updatedPacksTitle
+  addNewPack,
+  deletePack,
+  fetchPacksThunk,
+  setFilterPacksName,
+  setSortPacks,
+  updatedPacksTitle,
 } from "../../bll/packsReduser";
-import {AppStoreType} from "../../bll/store";
-import {Paginator} from "../paginator/Paginator";
-import {AddPack} from "./add_pack_modal/AddPack";
-import {Pack} from "./pack/Pack";
+import { AppStoreType } from "../../bll/store";
+import { Paginator } from "../paginator/Paginator";
+import { AddPack } from "./add_pack_modal/AddPack";
+import { Pack } from "./pack/Pack";
+import s from "../../table.module.css";
 
 export const Packs = React.memo(() => {
-    const dispatch = useDispatch();
-    const packs = useSelector<AppStoreType, Array<CardPacksType>>((state) => state.packs.packs);
-    const page = useSelector<AppStoreType, number>((state) => state.packs.page);
-    const pageCount = useSelector<AppStoreType, number>((state) => state.packs.pageCount);
-    const packsName = useSelector<AppStoreType, string>((state) => state.packs.packsName);
-    const sortPack = useSelector<AppStoreType, string>((state) => state.packs.sortPack);
-    const [editMode, setEditMode] = useState(false);
-    const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
+  const packs = useSelector<AppStoreType, Array<CardPacksType>>((state) => state.packs.packs);
+  const page = useSelector<AppStoreType, number>((state) => state.packs.page);
+  const pageCount = useSelector<AppStoreType, number>((state) => state.packs.pageCount);
+  const packsName = useSelector<AppStoreType, string>((state) => state.packs.packsName);
+  const sortPack = useSelector<AppStoreType, string>((state) => state.packs.sortPack);
+  const [editMode, setEditMode] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
+  useEffect(() => {
+    dispatch(fetchPacksThunk(page, pageCount, packsName, sortPack));
+  }, [dispatch, page, pageCount, packsName, sortPack]);
 
-    useEffect(() => {
-        dispatch(fetchPacksThunk(page, pageCount, packsName, sortPack));
-    }, [dispatch, page, pageCount, packsName, sortPack]);
+  const addPackHandle = () => {
+    setEditMode(true);
+  };
 
-    const addPackHandle = () => {
-        setEditMode(true);
-    };
+  const findePacksButon = () => {
+    dispatch(setFilterPacksName(searchValue));
+    // packs.filter(pack => pack.name && pack.name.includes(search))
+  };
 
-    const findePacksButon = () => {
-        dispatch(setFilterPacksName(searchValue))
-        // packs.filter(pack => pack.name && pack.name.includes(search))
-        // console.log('searchValue' , searchValue)
-    }
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.currentTarget.value);
+  };
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.currentTarget.value)
-    }
+  let removePack = useCallback(
+    (id: string) => {
+      dispatch(deletePack(id));
+    },
+    [dispatch]
+  );
 
+  let addNewPackHandle = useCallback(
+    (title: string) => {
+      dispatch(addNewPack(title));
+    },
+    [dispatch]
+  );
 
-    let removePack = useCallback(
-        (id: string) => {
-            dispatch(deletePack(id));
-        },
-        [dispatch]
-    );
+  let addNewPackTitle = useCallback(
+    (id: string, newTitle: string) => {
+      dispatch(updatedPacksTitle(id, newTitle));
+    },
+    [dispatch]
+  );
 
-    let addNewPackHandle = useCallback(
-        (title: string) => {
-            dispatch(addNewPack(title));
-        },
-        [dispatch]
-    );
+  const sortUP = () => {
+    dispatch(setSortPacks("1cardsCount"));
+  };
+  const sortDown = () => {
+    dispatch(setSortPacks("0cardsCount"));
+  };
 
-    let addNewPackTitle = useCallback(
-        (id: string, newTitle: string) => {
-            dispatch(updatedPacksTitle(id, newTitle));
-        },
-        [dispatch]
-    );
+  return (
+    <div className={s.table_container}>
+      <div className={s.sidebar}>
+        <h4>Show packs cards</h4>
+        <div>
+          <button>My</button>
+          <button>All</button>
+        </div>
+      </div>
 
-    const sortUP = () => {
-        dispatch(setSortPacks('1cardsCount'))
-    }
-    const sortDown = () => {
-        dispatch(setSortPacks('0cardsCount'))
-    }
+      <div className={s.table_wrap}>
+        <h4>Pack list</h4>
+        <div className={s.searchbar}>
+          <input type="search" placeholder="search" value={searchValue} onChange={onChangeHandler} />
+          <button onClick={findePacksButon} className={s.search_btn}>
+            &#128269;
+          </button>
+          <button onClick={addPackHandle} className={s.add_btn}>
+            Add new pack
+          </button>
+        </div>
 
-    return (
-        <>
-            <div>
-                <input type="search" value={searchValue} onChange={onChangeHandler}/>
-                <button onClick={findePacksButon}>search</button>
-                <button onClick={addPackHandle}>Add new pack</button>
+        <div className={s.table}>
+          {editMode && <AddPack addPack={addNewPackHandle} />}
+          <div className={s.tbl_wrap}>
+            <div className={s.table_title}>
+              <span>Name</span>
+              <span>Cards</span>
+              <span className={s.sort_btns}>
+                sort
+                <button onClick={sortUP}>&#9650;</button>
+                <button onClick={sortDown}> &#9660;</button>
+              </span>
+              <span>Created by</span>
+              <span>Actions</span>
             </div>
-            {editMode && <AddPack addPack={addNewPackHandle}/>}
             {packs.map((p) => {
-                return <Pack key={p._id} pack={p} removePack={removePack} addNewTite={addNewPackTitle}/>;
+              return <Pack key={p._id} pack={p} removePack={removePack} addNewTite={addNewPackTitle} />;
             })}
+          </div>
+        </div>
 
-            <span>
-                <div>
-                    <button onClick={sortUP}>sort up</button>
-                </div>
-                <div>
-                    <button onClick={sortDown}>sort down</button>
-                </div>
-            </span>
+        {/* <span>
+          <div>
+            <button onClick={sortUP}>sort up</button>
+          </div>
+          <div>
+            <button onClick={sortDown}>sort down</button>
+          </div>
+        </span> */}
 
-            <Paginator page={page} pageCount={pageCount}/>
-        </>
-    );
+        <Paginator page={page} pageCount={pageCount} />
+      </div>
+    </div>
+  );
 });

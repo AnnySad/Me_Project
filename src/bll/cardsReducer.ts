@@ -23,6 +23,7 @@ const addNewCards = (cards: Array<CardsType>) => ({ type: "ADD-NEW-CARD", cards 
 //thunk
 export const fetchCardsThunk = (cardsPack_id: any) => (dispatch: Dispatch) => {
   cardsAPI.getCards(cardsPack_id).then((res) => {
+    console.log(res);
     dispatch(setCards(res.data.cards));
   });
 };
