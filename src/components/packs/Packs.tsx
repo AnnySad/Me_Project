@@ -14,8 +14,9 @@ import { Paginator } from "../paginator/Paginator";
 import { AddPack } from "./add_pack_modal/AddPack";
 import { Pack } from "./pack/Pack";
 import s from "../../table.module.css";
+import { AuthRedirectComponent } from "../../hoc/AuthRedirectComponent";
 
-export const Packs = React.memo(() => {
+const Packs = React.memo(() => {
   const dispatch = useDispatch();
   const packs = useSelector<AppStoreType, Array<CardPacksType>>((state) => state.packs.packs);
   const page = useSelector<AppStoreType, number>((state) => state.packs.page);
@@ -126,3 +127,5 @@ export const Packs = React.memo(() => {
     </div>
   );
 });
+
+export default AuthRedirectComponent(Packs);

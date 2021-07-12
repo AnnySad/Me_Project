@@ -1,4 +1,5 @@
 import { ChangeEvent, useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import { addNewCard } from "../../../bll/cardsReducer";
 
 type PropsType = {
@@ -8,6 +9,7 @@ type PropsType = {
 export const AddNewCard = (props: PropsType) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const dispatch = useDispatch();
 
   const setQuestionHandle = (e: ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.currentTarget.value);
@@ -20,7 +22,7 @@ export const AddNewCard = (props: PropsType) => {
     (question: string, answer: string) => {
       dispatch(addNewCard(props.id, question, answer));
     },
-    [props.id]
+    [props.id, dispatch]
   );
 
   const addCardHandler = () => {
@@ -42,6 +44,3 @@ export const AddNewCard = (props: PropsType) => {
     </div>
   );
 };
-function dispatch(arg0: (dispatch: import("redux").Dispatch<import("redux").AnyAction>) => void) {
-  throw new Error("Function not implemented.");
-}

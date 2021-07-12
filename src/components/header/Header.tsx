@@ -15,9 +15,15 @@ function Header() {
   return (
     <div className={s.menuWrapper}>
       <nav className={s.containerMenuLinks}>
-        <NavLink to={PATH.LOGIN} onClick={logoutHandler} className={s.link} activeClassName={s.activeLink}>
-          {isLogined ? "logout" : "login"}
-        </NavLink>
+        {isLogined ? (
+          <button className={s.link} onClick={logoutHandler}>
+            logout
+          </button>
+        ) : (
+          <NavLink to={PATH.LOGIN} className={s.link} activeClassName={s.activeLink}>
+            login
+          </NavLink>
+        )}
         <NavLink to={PATH.REGISTRED} className={s.link} activeClassName={s.activeLink}>
           registred
         </NavLink>
@@ -30,9 +36,9 @@ function Header() {
         <NavLink to={PATH.PACKS} className={s.link} activeClassName={s.activeLink}>
           packs
         </NavLink>
-        <NavLink to={PATH.CARDS} className={s.link} activeClassName={s.activeLink}>
+        {/* <NavLink to={PATH.CARDS} className={s.link} activeClassName={s.activeLink}>
           cards
-        </NavLink>
+        </NavLink> */}
         {/* <NavLink to={PATH.TESTING} className={s.link}>
           testing
         </NavLink>

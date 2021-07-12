@@ -8,8 +8,8 @@ import EnteringNewPassword from "../EnteringNewPassword";
 import Testing from "../Testing";
 import { Forgot } from "../forgot/Forgot";
 import Registered from "../registred/Registered";
-import { Packs } from "../packs/Packs";
-import { Cards } from "../cards/Cards";
+import Packs from "../packs/Packs";
+import Cards from "../cards/Cards";
 
 export const PATH = {
   LOGIN: "/login",

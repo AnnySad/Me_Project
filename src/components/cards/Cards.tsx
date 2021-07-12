@@ -6,8 +6,9 @@ import { AppStoreType } from "../../bll/store";
 import { AddNewCard } from "./add-new-card-modal/AddNewCard";
 import { useParams } from "react-router-dom";
 import s from "../../table.module.css";
+import { AuthRedirectComponent } from "../../hoc/AuthRedirectComponent";
 
-export const Cards = () => {
+const Cards = () => {
   const dispatch = useDispatch();
   const cards = useSelector<AppStoreType, Array<CardsType>>((state) => state.cards);
   let { id } = useParams<{ id: string }>();
@@ -58,3 +59,4 @@ export const Cards = () => {
     </div>
   );
 };
+export default AuthRedirectComponent(Cards);

@@ -1,6 +1,8 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { CardPacksType } from "../../../api/api";
+import { AppStoreType } from "../../../bll/store";
 import s from "../../../table.module.css";
 
 type PropsType = {
@@ -12,6 +14,8 @@ type PropsType = {
 export const Pack = (props: PropsType) => {
   const [editMode, setEditMode] = useState(false);
   const [newTitle, setNewTitle] = useState(props.pack.name);
+  const userId = useSelector<AppStoreType, string | null>((state) => state.auth._id);
+
   const removePackHandler = useCallback(() => {
     props.removePack(props.pack._id);
   }, [props]);
@@ -61,17 +65,25 @@ export const Pack = (props: PropsType) => {
             <span>{props.pack.user_name}</span>
           </div>
         )}
-        <div className={s.btns}>
-          <button className={s.delete} onClick={removePackHandler}>
-            Delete
-          </button>
-          <button className={s.edit} onClick={onClickHandler}>
-            Edit
-          </button>
-          <button className={s.learn} onClick={() => handleClick(props.pack._id)}>
-            Learn
-          </button>
-        </div>
+        {userId === props.pack.user_id ? (
+          <div className={s.btns}>
+            <button className={s.delete} onClick={removePackHandler}>
+              Delete
+            </button>
+            <button className={s.edit} onClick={onClickHandler}>
+              Edit
+            </button>
+            <button className={s.learn} onClick={() => handleClick(props.pack._id)}>
+              Learn
+            </button>
+          </div>
+        ) : (
+          <div className={s.btns}>
+            <button className={s.learn} onClick={() => handleClick(props.pack._id)}>
+              Learn
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

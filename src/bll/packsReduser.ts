@@ -100,19 +100,19 @@ export const fetchPacksThunk =
   };
 
 export const addNewPack = (title: string) => (dispatch: Dispatch) => {
-  packsAPI.addNewPack(title).then((res) => {
+  packsAPI.addNewPack(title).then(() => {
     dispatch(addPackTitle(title));
   });
 };
 
 export const deletePack = (id: string) => (dispatch: Dispatch) => {
-  packsAPI.deletePack(id).then((res) => {
+  packsAPI.deletePack(id).then(() => {
     dispatch(removePack(id));
   });
 };
 
 export const updatedPacksTitle = (id: string, title: string) => (dispatch: Dispatch) => {
-  packsAPI.updatedCardsPack(id, title).then((res) => {
+  packsAPI.updatedCardsPack(id, title).then(() => {
     dispatch(updatedCardsPack(id, title));
   });
 };
@@ -127,4 +127,4 @@ type ActionsType =
   | ReturnType<typeof setPage>
   | ReturnType<typeof setSortPacks>;
 
-export type setPacksType = ReturnType<typeof setPacks>;
+export type fetchPacksThunkType = typeof fetchPacksThunk;
