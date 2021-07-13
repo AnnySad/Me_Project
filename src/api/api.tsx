@@ -40,13 +40,17 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks(page: number, pageCount: number, packName?: string, sortPacks?: string) {
+  getPacks(page: number, pageCount: number,  sortPack: string, searchValue?: string, min?: number, max?: number) {
+
+    debugger
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
         pageCount: pageCount,
-        sortPacks: sortPacks,
-        packName: packName,
+        sortPacks: sortPack,
+        packName: searchValue,
+        min: min,
+        max: max
         // user_id: "60d6d56dd5086f000458d12f",
       },
     });
