@@ -7,14 +7,15 @@ import s from "./Paginator.module.css";
 type PropsType = {
   page: number;
   pageCount: number;
+  sortPack: string
 };
 
-export const Paginator = ({ page, pageCount }: PropsType) => {
+export const Paginator = ({ page, pageCount, sortPack }: PropsType) => {
   const dispatch = useDispatch();
   const cardPackTotalCount = useSelector<AppStoreType, number>((state) => state.packs.cardPackTotalCount);
 
   const onPageChanged = (page: number) => {
-    dispatch(fetchPacksThunk(page, pageCount));
+    dispatch(fetchPacksThunk(page, pageCount,sortPack));
   };
 
   const packPagesCount = Math.ceil(cardPackTotalCount / pageCount);
