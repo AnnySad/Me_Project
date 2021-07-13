@@ -34,8 +34,8 @@ export const AddNewCard = (props: PropsType) => {
     };
 
     return (
-        <div className={s.modal}>
-            <div className={s.form}>
+        <div className={s.modal} onClick={props.closeModal}>
+            <div className={s.form} onClick={e => e.stopPropagation()}>
       <span>
         <h3>Add new card</h3>
           <label>Name card</label>

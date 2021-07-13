@@ -130,13 +130,7 @@
   padding: 60px 15px;
 }
 
-/*.modal_active {*/
-/*  position: fixed;*/
-/*  top: 0;*/
-/*  visibility: visible;*/
-/*  opacity: 1;*/
-/*  transition: .3s;*/
-/*}*/
+
 
 .closeButton {
   float: right;
@@ -156,11 +150,10 @@
   cursor: pointer;
   transition: .3s;
   outline: none;
-  cursor: pointer;
   color: crimson;
 }
 
-.modal__close-button:hover {
+.closeButton:hover {
   transition: .3s;
   transform: rotate(180deg);
 }
