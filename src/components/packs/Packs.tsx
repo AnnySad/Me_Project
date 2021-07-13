@@ -86,6 +86,8 @@ const Packs = React.memo(() => {
         }
     }
 
+    const closePackModal = () => setEditMode(false);
+
     return (
         <div className={s.table_container}>
             <div className={s.sidebar}>
@@ -121,7 +123,7 @@ const Packs = React.memo(() => {
                 </div>
 
                 <div className={s.table}>
-                    {editMode && <AddPack addPack={addNewPackHandle}/>}
+                    {editMode && <AddPack addPack={addNewPackHandle} closeModal={closePackModal}/>}
                     <div className={s.tbl_wrap}>
                         <div className={s.table_title}>
                             <span>Name</span>
