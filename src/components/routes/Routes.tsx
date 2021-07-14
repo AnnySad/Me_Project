@@ -10,6 +10,7 @@ import { Forgot } from "../forgot/Forgot";
 import Registered from "../registred/Registered";
 import Packs from "../packs/Packs";
 import Cards from "../cards/Cards";
+import { LearnPage } from "../learn_page/LearnPage";
 
 export const PATH = {
   LOGIN: "/login",
@@ -22,6 +23,7 @@ export const PATH = {
   FORGOT: "/forgot",
   PACKS: "/packs/",
   CARDS: "/cards/:id",
+  LEARN: "/learn/:id",
 };
 
 function Routes() {
@@ -38,6 +40,7 @@ function Routes() {
       <Route path={PATH.ENTERING_NEW_PASSWORD} render={() => <EnteringNewPassword />} />
       <Route path={PATH.PACKS} render={() => <Packs />} />
       <Route path={PATH.CARDS} render={() => <Cards />} />
+      <Route path={PATH.LEARN} render={() => <LearnPage />} />
 
       <Route render={() => <Error404 />} />
     </Switch>

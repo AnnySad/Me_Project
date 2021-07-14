@@ -26,6 +26,10 @@ export const Pack = (props: PropsType) => {
     history.push(`/cards/${id}`);
   }
 
+  function onLearnButtonClick(id: string) {
+    history.push(`/learn/${id}`);
+  }
+
   const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.currentTarget.value);
   };
@@ -61,7 +65,8 @@ export const Pack = (props: PropsType) => {
           />
         ) : (
           <div className={s.table_body}>
-            <span>{props.pack.name}</span> <span>{props.pack.cardsCount}</span>
+            <span onClick={() => handleClick(props.pack._id)}>{props.pack.name}</span>{" "}
+            <span>{props.pack.cardsCount}</span>
             <span>{props.pack.user_name}</span>
           </div>
         )}
@@ -73,13 +78,13 @@ export const Pack = (props: PropsType) => {
             <button className={s.edit} onClick={onClickHandler}>
               Edit
             </button>
-            <button className={s.learn} onClick={() => handleClick(props.pack._id)}>
+            <button className={s.learn} onClick={() => onLearnButtonClick(props.pack._id)}>
               Learn
             </button>
           </div>
         ) : (
           <div className={s.btns}>
-            <button className={s.learn} onClick={() => handleClick(props.pack._id)}>
+            <button className={s.learn} onClick={() => onLearnButtonClick(props.pack._id)}>
               Learn
             </button>
           </div>

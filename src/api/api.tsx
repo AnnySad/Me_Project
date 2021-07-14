@@ -40,9 +40,8 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks(page: number, pageCount: number,  sortPack: string, searchValue?: string, min?: number, max?: number) {
-
-    debugger
+  getPacks(page: number, pageCount: number, sortPack: string, searchValue?: string, min?: number, max?: number) {
+    debugger;
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
@@ -50,7 +49,7 @@ export const packsAPI = {
         sortPacks: sortPack,
         packName: searchValue,
         min: min,
-        max: max
+        max: max,
         // user_id: "60d6d56dd5086f000458d12f",
       },
     });
@@ -84,6 +83,9 @@ export const cardsAPI = {
       card: { cardsPack_id, question, answer },
     });
   },
+  setGreageCard(grade: number, card_id: string) {
+    return instance.put("cards/grade", { grade, card_id });
+  },
 };
 
 export type ResponceType<T = {}> = {
@@ -116,15 +118,16 @@ export type CardsType = {
   answer?: string;
   question?: string;
   cardsPack_id: string;
-  grade?: number;
+  grade: number;
   rating?: number;
   shots?: number;
   type?: string;
+  more_id: string;
   user_id?: string;
   created?: string;
   updated?: string;
   __v?: number;
-  _id?: string;
+  _id: string;
 };
 
 export type OwnCardsType<T = {}> = {
