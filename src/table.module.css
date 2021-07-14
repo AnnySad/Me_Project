@@ -127,3 +127,11 @@
 .sort_btns button {
   background: transparent;
 }
+
+.rating {
+  color: #d7d8ef;
+}
+
+.rating_color {
+  color: #21268f;
+}
