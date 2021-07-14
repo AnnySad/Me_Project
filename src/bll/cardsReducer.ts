@@ -5,6 +5,11 @@ import { cardsAPI, CardsType } from "../api/api";
 const initialState = {
   cards: [] as Array<CardsType>,
   grade: 0,
+  sortCards: "" as string,
+  page: 1,
+  pageCount: 5,
+  cardsTotalCount: 100,
+  cardsPack_id: ""
 };
 
 type initialStateType = typeof initialState;
@@ -25,6 +30,27 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
       return { ...state, grade: action.grade };
     }
 
+    case "SET-PAGEC": {
+      return {
+        ...state,
+        page: action.page,
+      };
+    }
+
+    // case "SET-PAGE-COUNT": {
+    //   return {
+    //     ...state,
+    //     pageCount: action.pageCount,
+    //   };
+    // }
+
+    case "SET-CARD-TOTAL-COUNT": {
+      return {
+        ...state,
+        cardsTotalCount: action.cardsTotalCount,
+    };
+  }
+
     default:
       return state;
   }
@@ -34,11 +60,17 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 const setCards = (cards: Array<CardsType>) => ({ type: "SET-CARDS", cards } as const);
 const addNewCards = (cards: Array<CardsType>) => ({ type: "ADD-NEW-CARD", cards } as const);
 const setGrade = (grade: number) => ({ type: "SET-GRADE", grade } as const);
+const setPage = (page: number) => ({type: "SET-PAGEC", page} as const);
+// const setPageCount = (pageCount:number) => ({type: "SET-PAGE-COUNT", pageCount} as const)
+const setCardTotalCount = (cardsTotalCount: number) =>
+    ({ type: "SET-CARD-TOTAL-COUNT", cardsTotalCount } as const);
 
 //thunk
-export const fetchCardsThunk = (cardsPack_id: any) => (dispatch: Dispatch) => {
-  cardsAPI.getCards(cardsPack_id).then((res) => {
+export const fetchCardsThunk = (cardsPack_id: string, page:number, pageCount:number) => (dispatch: Dispatch) => {
+  cardsAPI.getCards(cardsPack_id, page, pageCount).then((res) => {
     dispatch(setCards(res.data.cards));
+    dispatch(setPage(page))
+    dispatch(setCardTotalCount(res.data.cardsTotalCount));
     console.log(res);
   });
 };
@@ -58,4 +90,9 @@ export const setGradeCard = (grade: number, card_id: string) => (dispatch: Dispa
 
 //types
 
-type ActionsType = ReturnType<typeof setCards> | ReturnType<typeof addNewCards> | ReturnType<typeof setGrade>;
+type ActionsType = ReturnType<typeof setCards>
+    | ReturnType<typeof addNewCards>
+    | ReturnType<typeof setPage>
+    | ReturnType<typeof setCardTotalCount>
+    // | ReturnType<typeof setPageCount>
+    | ReturnType<typeof setGrade>;

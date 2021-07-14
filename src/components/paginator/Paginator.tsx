@@ -7,26 +7,27 @@ import s from "./Paginator.module.css";
 type PropsType = {
   page: number;
   pageCount: number;
-  sortPack: string
+  totalCount: number
+  onPageChanged: (page: number) => void
 };
 
-export const Paginator = ({ page, pageCount, sortPack }: PropsType) => {
-  const dispatch = useDispatch();
-  const cardPackTotalCount = useSelector<AppStoreType, number>((state) => state.packs.cardPackTotalCount);
+export const Paginator = ({ page, pageCount, totalCount, onPageChanged }: PropsType) => {
+  // const dispatch = useDispatch();
+  // const cardPackTotalCount = useSelector<AppStoreType, number>((state) => state.packs.cardPackTotalCount);
 
-  const onPageChanged = (page: number) => {
-    dispatch(fetchPacksThunk(page, pageCount,sortPack));
-  };
+  // const onPageChanged = (page: number) => {
+  //   dispatch(fetchPacksThunk(page, pageCount,sortPack));
+  // };
 
-  const packPagesCount = Math.ceil(cardPackTotalCount / pageCount);
+  const PagesCount = Math.ceil(totalCount / pageCount);
   let pages = [];
-  for (let i = 1; i <= packPagesCount; i++) {
+  for (let i = 1; i <= PagesCount; i++) {
     pages.push(i);
   }
 
   const portionSize = 10;
 
-  const portionCount = Math.ceil(packPagesCount / portionSize);
+  const portionCount = Math.ceil(PagesCount / portionSize);
   const [portionNumber, setPortionNumber] = useState<number>(1);
   const leftPortionNumber = (portionNumber - 1) * portionSize + 1;
   const rightPortionNumber = portionNumber * portionSize;

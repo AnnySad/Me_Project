@@ -41,7 +41,6 @@ export const authAPI = {
 
 export const packsAPI = {
   getPacks(page: number, pageCount: number, sortPack: string, searchValue?: string, min?: number, max?: number) {
-    debugger;
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
@@ -69,12 +68,12 @@ export const packsAPI = {
 };
 
 export const cardsAPI = {
-  getCards(cardsPack_id: string) {
+  getCards(cardsPack_id: string, page: number, pageCount: number) {
     return instance.get("cards/card", {
       params: {
         cardsPack_id: cardsPack_id,
-        page: 1,
-        pageCount: 7, // не обязательно
+        page: page,
+        pageCount: pageCount, // не обязательно
       },
     });
   },

@@ -15,6 +15,7 @@ const reducers = combineReducers({
   login: loginReducer,
   packs: packsReducer,
   cards: cardsReducer,
+
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

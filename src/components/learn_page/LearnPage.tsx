@@ -24,6 +24,8 @@ export const LearnPage = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [first, setFirst] = useState<boolean>(true);
   const cards = useSelector<AppStoreType, CardsType[]>((state) => state.cards.cards);
+  const page = useSelector<AppStoreType, number>((state) => state.cards.page);
+  const pageCount = useSelector<AppStoreType, number>((state) => state.cards.pageCount);
   const { id } = useParams<{ id: string }>();
 
   const [card, setCard] = useState<CardsType>({
@@ -46,7 +48,7 @@ export const LearnPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (first) {
-      dispatch(fetchCardsThunk(id));
+      dispatch(fetchCardsThunk(id, page, pageCount));
       setFirst(false);
     }
 
