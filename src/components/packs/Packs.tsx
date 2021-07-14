@@ -22,6 +22,7 @@ const Packs = React.memo(() => {
     const packs = useSelector<AppStoreType, Array<CardPacksType>>((state) => state.packs.packs);
     const page = useSelector<AppStoreType, number>((state) => state.packs.page);
     const pageCount = useSelector<AppStoreType, number>((state) => state.packs.pageCount);
+    const cardPackTotalCount = useSelector<AppStoreType, number>((state) => state.packs.cardPackTotalCount)
     const packsName = useSelector<AppStoreType, string>((state) => state.packs.packName);
     const sortPack = useSelector<AppStoreType, string>((state) => state.packs.sortPack);
     const [editMode, setEditMode] = useState(false);
@@ -70,6 +71,10 @@ const Packs = React.memo(() => {
         },
         [dispatch]
     );
+
+    const onPageChanged = (page: number) => {
+        dispatch(fetchPacksThunk(page, pageCount,sortPack));
+    };
 
     const sortUP = () => {
         dispatch(setSortPacks("1cardsCount"));
@@ -141,7 +146,7 @@ const Packs = React.memo(() => {
                         })}
                     </div>
                 </div>
-                <Paginator page={page} pageCount={pageCount} sortPack={sortPack}/>
+                <Paginator page={page} pageCount={pageCount}  totalCount={cardPackTotalCount} onPageChanged={onPageChanged}/>
             </div>
         </div>
     )

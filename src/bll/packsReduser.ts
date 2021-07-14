@@ -41,7 +41,7 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
             }
             return {...state};
         }
-        case "SET-PAGE": {
+        case "SET-PAGEP": {
             return {
                 ...state,
                 page: action.page,
@@ -83,7 +83,7 @@ const setPacks = (packs: Array<CardPacksType>) => ({type: "SET-PACKS", packs} as
 const addPackTitle = (packs: any) => ({type: "ADD-PACK-TITLE", packs} as const);
 const removePack = (id: string) => ({type: "REMOVE-PACK", id} as const);
 const updatedCardsPack = (id: string, title: string) => ({type: " UPDATED-CARDS-PACK", id, title} as const);
-const setPage = (page: number) => ({type: "SET-PAGE", page} as const);
+const setPage = (page: number) => ({type: "SET-PAGEP", page} as const);
 const setCardPackTotalCount = (cardPackTotalCount: number) =>
     ({type: "SET-CARD-PACK-TOTAL-COUNT", cardPackTotalCount} as const);
 export const setFilterPackName = (name: string) => ({type: "SET-FILTER-PACK-NAME", name} as const);

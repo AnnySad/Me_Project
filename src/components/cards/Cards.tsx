@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardsType } from "../../api/api";
 import { fetchCardsThunk } from "../../bll/cardsReducer";
@@ -8,15 +8,22 @@ import { useParams } from "react-router-dom";
 import s from "../../table.module.css";
 import { AuthRedirectComponent } from "../../hoc/AuthRedirectComponent";
 import { Rating } from "../rating/Rating";
+import {Paginator} from "../paginator/Paginator";
+import {fetchPacksThunk} from "../../bll/packsReduser";
 
 const Cards = () => {
   const dispatch = useDispatch();
   const cards = useSelector<AppStoreType, Array<CardsType>>((state) => state.cards.cards);
+  const sortPack = useSelector<AppStoreType, string>((state) => state.packs.sortPack);
+  const page = useSelector<AppStoreType, number>((state) => state.cards.page);
+  const pageCount = useSelector<AppStoreType, number>((state) => state.cards.pageCount);
+  const cardsTotalCount = useSelector<AppStoreType, number>((state) => state.cards.cardsTotalCount);
   let { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    dispatch(fetchCardsThunk(id));
-  }, [dispatch, id]);
+    dispatch(fetchCardsThunk(id, page, pageCount));
+  }, [dispatch, id, page, pageCount]);
+
   const [editMode, setEditMode] = useState(false);
 
   const stars = [1, 1, 1, 1, 1];
@@ -24,6 +31,13 @@ const Cards = () => {
   const addCardsHandle = () => {
     setEditMode(true);
   };
+
+
+  const onPageChanged = (page: number) => {
+    dispatch(fetchCardsThunk(id,page, pageCount));
+  };
+
+
   const closeCardModal = () => setEditMode(false);
 
   return (
@@ -64,6 +78,7 @@ const Cards = () => {
             );
           })}
         </div>
+        <Paginator page={page} pageCount={pageCount} totalCount={cardsTotalCount} onPageChanged={onPageChanged}/>
       </div>
     </div>
   );
