@@ -1,7 +1,7 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardsType } from "../../api/api";
-import { fetchCardsThunk, setPageCountCard, setSearch, setSortCards } from "../../bll/cardsReducer";
+import { fetchCardsThunk, setPageCountCard, setSearch, setSortCards, deleteCard } from "../../bll/cardsReducer";
 import { AppStoreType } from "../../bll/store";
 import { AddNewCard } from "./add-new-card-modal/AddNewCard";
 import { useParams } from "react-router-dom";
@@ -9,6 +9,8 @@ import s from "../../table.module.css";
 import { AuthRedirectComponent } from "../../hoc/AuthRedirectComponent";
 import { Rating } from "../rating/Rating";
 import { Paginator } from "../paginator/Paginator";
+import Card from "./add-new-card-modal/card/card";
+
 
 const Cards = () => {
   const dispatch = useDispatch();
@@ -22,9 +24,13 @@ const Cards = () => {
 
   const [searchVal, setSearchVal] = useState("");
 
+
+
   useEffect(() => {
     dispatch(fetchCardsThunk(id, page, pageCount, search, sort));
   }, [dispatch, id, page, pageCount, search, sort]);
+
+
 
   const [editMode, setEditMode] = useState(false);
 
@@ -62,6 +68,14 @@ const Cards = () => {
 
   const closeCardModal = () => setEditMode(false);
 
+
+  let removeCard = useCallback(
+      (id: string) => {
+        dispatch(deleteCard(id));
+      },
+      [dispatch]
+  );
+
   return (
     <div className={s.table_container_card}>
       <div className={s.table_wrap}>
@@ -74,6 +88,8 @@ const Cards = () => {
           <button className={s.add_btn} onClick={addCardsHandle}>
             add new card
           </button>
+
+
         </div>
 
         <div className={s.table}>
@@ -87,10 +103,12 @@ const Cards = () => {
               <button onClick={sortDown}> &#9660;</button>
             </span>
             <span>Grade</span>
+            <span>Actions</span>
           </div>
           {cards.map((c) => {
             return (
-              <div key={c._id} className={s.table_body_card + " " + s.table_line_card}>
+<div className={s.table_body_card + " " + s.table_line_card}>
+              <Card key={c._id} removeCard={removeCard} card={c}/>
                 <span>{c.question}</span>
                 <span>{c.answer}</span>
                 <div className={s.grade}>
@@ -98,10 +116,12 @@ const Cards = () => {
                     <Rating key={i} blue={c.grade > i} />
                   ))}
                 </div>
-              </div>
+
+</div>
             );
           })}
         </div>
+
         <Paginator
           page={page}
           pageCount={pageCount}
