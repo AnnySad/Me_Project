@@ -1,24 +1,16 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPacksThunk } from "../../bll/packsReduser";
-import { AppStoreType } from "../../bll/store";
+import { setPageCount } from "../../bll/packsReduser";
 import s from "./Paginator.module.css";
 
 type PropsType = {
   page: number;
   pageCount: number;
-  totalCount: number
-  onPageChanged: (page: number) => void
+  totalCount: number;
+  onPageChanged: (page: number) => void;
+  setPagesCount: (pageCount: number) => void;
 };
 
-export const Paginator = ({ page, pageCount, totalCount, onPageChanged }: PropsType) => {
-  // const dispatch = useDispatch();
-  // const cardPackTotalCount = useSelector<AppStoreType, number>((state) => state.packs.cardPackTotalCount);
-
-  // const onPageChanged = (page: number) => {
-  //   dispatch(fetchPacksThunk(page, pageCount,sortPack));
-  // };
-
+export const Paginator = ({ page, pageCount, totalCount, onPageChanged, setPagesCount }: PropsType) => {
   const PagesCount = Math.ceil(totalCount / pageCount);
   let pages = [];
   for (let i = 1; i <= PagesCount; i++) {
@@ -26,6 +18,7 @@ export const Paginator = ({ page, pageCount, totalCount, onPageChanged }: PropsT
   }
 
   const portionSize = 10;
+  const selectPageCount = [5, 10, 15, 20, 30];
 
   const portionCount = Math.ceil(PagesCount / portionSize);
   const [portionNumber, setPortionNumber] = useState<number>(1);
@@ -67,6 +60,18 @@ export const Paginator = ({ page, pageCount, totalCount, onPageChanged }: PropsT
           &rArr;
         </button>
       )}
+      <div className={s.select}>
+        <select
+          value={pageCount}
+          onChange={(e) => {
+            setPagesCount(Number(e.currentTarget.value));
+          }}
+        >
+          {selectPageCount.map((option, i) => (
+            <option key={i}>{option}</option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

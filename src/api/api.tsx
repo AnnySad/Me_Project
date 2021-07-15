@@ -68,12 +68,16 @@ export const packsAPI = {
 };
 
 export const cardsAPI = {
-  getCards(cardsPack_id: string, page: number, pageCount: number) {
+  getCards(cardsPack_id: string, page?: number, pageCount?: number, search?: string, sort?: string) {
+    console.log("cardsQuestionAPI ", search);
     return instance.get("cards/card", {
       params: {
-        cardsPack_id: cardsPack_id,
-        page: page,
-        pageCount: pageCount, // не обязательно
+        cardsPack_id,
+        page,
+        pageCount,
+        cardQuestion: search,
+        // cardAnswer: search,
+        sortCards: sort, // не обязательно
       },
     });
   },

@@ -9,7 +9,9 @@ const initialState = {
   page: 1,
   pageCount: 5,
   cardsTotalCount: 100,
-  cardsPack_id: ""
+  cardsPack_id: "",
+  searchVal: "",
+  sort: "",
 };
 
 type initialStateType = typeof initialState;
@@ -37,19 +39,33 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
       };
     }
 
-    // case "SET-PAGE-COUNT": {
-    //   return {
-    //     ...state,
-    //     pageCount: action.pageCount,
-    //   };
-    // }
+    case "CARD/SET-PAGE-COUNT": {
+      return {
+        ...state,
+        pageCount: action.pageCount,
+      };
+    }
+
+    case "CARDS/SET-SEARCH": {
+      return {
+        ...state,
+        searchVal: action.searchVal,
+      };
+    }
+
+    case "CARDS/SET-SORT-VAL": {
+      return {
+        ...state,
+        sort: action.sortVal,
+      };
+    }
 
     case "SET-CARD-TOTAL-COUNT": {
       return {
         ...state,
         cardsTotalCount: action.cardsTotalCount,
-    };
-  }
+      };
+    }
 
     default:
       return state;
@@ -60,20 +76,23 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
 const setCards = (cards: Array<CardsType>) => ({ type: "SET-CARDS", cards } as const);
 const addNewCards = (cards: Array<CardsType>) => ({ type: "ADD-NEW-CARD", cards } as const);
 const setGrade = (grade: number) => ({ type: "SET-GRADE", grade } as const);
-const setPage = (page: number) => ({type: "SET-PAGEC", page} as const);
-// const setPageCount = (pageCount:number) => ({type: "SET-PAGE-COUNT", pageCount} as const)
-const setCardTotalCount = (cardsTotalCount: number) =>
-    ({ type: "SET-CARD-TOTAL-COUNT", cardsTotalCount } as const);
+const setPage = (page: number) => ({ type: "SET-PAGEC", page } as const);
+export const setPageCountCard = (pageCount: number) => ({ type: "CARD/SET-PAGE-COUNT", pageCount } as const);
+const setCardTotalCount = (cardsTotalCount: number) => ({ type: "SET-CARD-TOTAL-COUNT", cardsTotalCount } as const);
+export const setSearch = (searchVal: string) => ({ type: "CARDS/SET-SEARCH", searchVal } as const);
+export const setSortCards = (sortVal: string) => ({ type: "CARDS/SET-SORT-VAL", sortVal } as const);
 
 //thunk
-export const fetchCardsThunk = (cardsPack_id: string, page:number, pageCount:number) => (dispatch: Dispatch) => {
-  cardsAPI.getCards(cardsPack_id, page, pageCount).then((res) => {
-    dispatch(setCards(res.data.cards));
-    dispatch(setPage(page))
-    dispatch(setCardTotalCount(res.data.cardsTotalCount));
-    console.log(res);
-  });
-};
+export const fetchCardsThunk =
+  (cardsPack_id: string, page?: number, pageCount?: number, cardQuestion?: string, sort?: string) =>
+  (dispatch: Dispatch) => {
+    cardsAPI.getCards(cardsPack_id, page, pageCount, cardQuestion, sort).then((res) => {
+      console.log("cardQuestionTHUNK ", cardQuestion);
+      dispatch(setCards(res.data.cards));
+      page && dispatch(setPage(page));
+      dispatch(setCardTotalCount(res.data.cardsTotalCount));
+    });
+  };
 
 export const addNewCard = (cardsPack_id: string, question: string, answer: string) => (dispatch: Dispatch) => {
   cardsAPI.addNewCard(cardsPack_id, question, answer).then((res) => {
@@ -90,9 +109,12 @@ export const setGradeCard = (grade: number, card_id: string) => (dispatch: Dispa
 
 //types
 
-type ActionsType = ReturnType<typeof setCards>
-    | ReturnType<typeof addNewCards>
-    | ReturnType<typeof setPage>
-    | ReturnType<typeof setCardTotalCount>
-    // | ReturnType<typeof setPageCount>
-    | ReturnType<typeof setGrade>;
+type ActionsType =
+  | ReturnType<typeof setCards>
+  | ReturnType<typeof addNewCards>
+  | ReturnType<typeof setPage>
+  | ReturnType<typeof setCardTotalCount>
+  | ReturnType<typeof setPageCountCard>
+  | ReturnType<typeof setSearch>
+  | ReturnType<typeof setSortCards>
+  | ReturnType<typeof setGrade>;

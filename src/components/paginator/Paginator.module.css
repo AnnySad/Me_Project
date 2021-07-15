@@ -1,5 +1,7 @@
 .paginator_container {
   margin-top: 20px;
+  display: flex;
+  align-items: center;
 }
 .paginator_container span {
   padding: 5px 10px;
@@ -14,7 +16,8 @@
   cursor: pointer;
 }
 
-.paginator {
+.select {
+  margin-left: auto;
 }
 
 .selectedPage,
