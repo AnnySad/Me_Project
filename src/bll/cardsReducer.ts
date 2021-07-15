@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { cardsAPI, CardsType } from "../api/api";
+import {cardsAPI, CardsType, packsAPI} from "../api/api";
 
 // const initialState: Array<CardsType> = [];
 const initialState = {
@@ -67,6 +67,13 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
       };
     }
 
+    case "REMOVE-CARD": {
+      return {
+        ...state,
+        cards: state.cards.filter((p) => p._id !== action.id),
+      };
+    }
+
     default:
       return state;
   }
@@ -81,6 +88,7 @@ export const setPageCountCard = (pageCount: number) => ({ type: "CARD/SET-PAGE-C
 const setCardTotalCount = (cardsTotalCount: number) => ({ type: "SET-CARD-TOTAL-COUNT", cardsTotalCount } as const);
 export const setSearch = (searchVal: string) => ({ type: "CARDS/SET-SEARCH", searchVal } as const);
 export const setSortCards = (sortVal: string) => ({ type: "CARDS/SET-SORT-VAL", sortVal } as const);
+const removeCard = (id: string) => ({ type: "REMOVE-CARD", id } as const);
 
 //thunk
 export const fetchCardsThunk =
@@ -107,6 +115,12 @@ export const setGradeCard = (grade: number, card_id: string) => (dispatch: Dispa
   });
 };
 
+export const deleteCard = (id: string) => (dispatch: Dispatch) => {
+  cardsAPI.deletedCard(id).then(() => {
+    dispatch(removeCard(id));
+  });
+};
+
 //types
 
 type ActionsType =
@@ -117,4 +131,5 @@ type ActionsType =
   | ReturnType<typeof setPageCountCard>
   | ReturnType<typeof setSearch>
   | ReturnType<typeof setSortCards>
+  | ReturnType<typeof removeCard>
   | ReturnType<typeof setGrade>;

@@ -65,6 +65,7 @@ export const packsAPI = {
   updatedCardsPack(id: string, title?: string) {
     return instance.put("cards/pack", { cardsPack: { _id: id, name: title } });
   },
+
 };
 
 export const cardsAPI = {
@@ -88,6 +89,10 @@ export const cardsAPI = {
   },
   setGreageCard(grade: number, card_id: string) {
     return instance.put("cards/grade", { grade, card_id });
+  },
+
+  deletedCard(id: string) {
+    return instance.delete(`cards/card/?id=${id}`);
   },
 };
 
@@ -126,7 +131,7 @@ export type CardsType = {
   shots?: number;
   type?: string;
   more_id: string;
-  user_id?: string;
+  user_id: string;
   created?: string;
   updated?: string;
   __v?: number;
