@@ -12,11 +12,12 @@ const initialState = {
   cardsPack_id: "",
   searchVal: "",
   sort: "",
+  question: ""
 };
 
 type initialStateType = typeof initialState;
 
-export const cardsReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
+export const cardsReducer = (state: initialStateType = initialState, action: any): initialStateType => {
   switch (action.type) {
     case "SET-CARDS": {
       return {
@@ -74,6 +75,14 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
       };
     }
 
+    case " UPDATED-CARDS-QUESTION": {
+      let newCardQuestion = state.cards.find((c) => c._id === action.id);
+      if (newCardQuestion) {
+        newCardQuestion.question = action.question;
+      }
+      return { ...state };
+    }
+
     default:
       return state;
   }
@@ -89,6 +98,9 @@ const setCardTotalCount = (cardsTotalCount: number) => ({ type: "SET-CARD-TOTAL-
 export const setSearch = (searchVal: string) => ({ type: "CARDS/SET-SEARCH", searchVal } as const);
 export const setSortCards = (sortVal: string) => ({ type: "CARDS/SET-SORT-VAL", sortVal } as const);
 const removeCard = (id: string) => ({ type: "REMOVE-CARD", id } as const);
+const updatedCardsQuestion = (id: string, question: string) => ({ type: " UPDATED-CARDS-QUESTION", id, question } as const);
+
+
 
 //thunk
 export const fetchCardsThunk =
@@ -121,6 +133,13 @@ export const deleteCard = (id: string) => (dispatch: Dispatch) => {
   });
 };
 
+export const updatedCardQuestion = (cardsPack_id: string, id: string, question: string) => (dispatch: any) => {
+  cardsAPI.updatedCardsQuestion(id, question).then(() => {
+    dispatch(updatedCardsQuestion(id, question));
+    dispatch(fetchCardsThunk(cardsPack_id))
+  });
+};
+
 //types
 
 type ActionsType =
@@ -132,4 +151,5 @@ type ActionsType =
   | ReturnType<typeof setSearch>
   | ReturnType<typeof setSortCards>
   | ReturnType<typeof removeCard>
+  | ReturnType<typeof updatedCardQuestion>
   | ReturnType<typeof setGrade>;

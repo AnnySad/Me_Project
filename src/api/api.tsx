@@ -94,6 +94,11 @@ export const cardsAPI = {
   deletedCard(id: string) {
     return instance.delete(`cards/card/?id=${id}`);
   },
+
+
+updatedCardsQuestion(id: string, question?: string) {
+  return instance.put("cards/card", { card: { _id: id, question: question } });
+},
 };
 
 export type ResponceType<T = {}> = {
