@@ -53,7 +53,7 @@ export const Card = (props: CardPropsType) => {
     }, [props]);
     const stars = [1, 1, 1, 1, 1];
 
-    return <div>
+    return <div className={s.table_container_card }>
 
         <div className={s.table_body_card + " " + s.table_line_card}>
 
