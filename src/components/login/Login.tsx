@@ -11,7 +11,7 @@ import { Preloader } from "../Preloader/Preloader";
 export const Login = () => {
   const isLoggedIn = useSelector<AppStoreType, boolean>((state) => state.login.isLogined);
   const error = useSelector<AppStoreType, string | null>((state) => state.register.error);
-  const isFetching = useSelector<AppStoreType, boolean>((state) => state.register.isFetching);
+  const isFetching = useSelector<AppStoreType, boolean>((state) => state.login.isFetching);
   const [email, setEmail] = useState("cheptsova.liza@mail.ru");
   const [password, setPassword] = useState("11111111");
   const [checked, setChecked] = useState(false);

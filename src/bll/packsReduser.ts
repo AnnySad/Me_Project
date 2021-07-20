@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { CardPacksType, packsAPI } from "../api/api";
+import { toggleIsFetching } from "./loginReducer";
 
 // const initialState: Array<CardPacksType> = [];
 
@@ -9,7 +10,7 @@ const initialState = {
   pageCount: 10,
   cardPackTotalCount: 100,
   packName: "",
-  sortPack: "" as string,
+  sortPack: "",
 };
 
 type initialStateType = typeof initialState;
@@ -28,19 +29,7 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
         packs: [...action.packs, ...state.packs],
       };
     }
-    case "REMOVE-PACK": {
-      return {
-        ...state,
-        packs: state.packs.filter((p) => p._id !== action.id),
-      };
-    }
-    case " UPDATED-CARDS-PACK": {
-      let newPackTitle = state.packs.find((p) => p._id === action.id);
-      if (newPackTitle) {
-        newPackTitle.name = action.title;
-      }
-      return { ...state };
-    }
+
     case "SET-PAGEP": {
       return {
         ...state,
@@ -73,12 +62,6 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
       };
     }
 
-    // case "SET-RANGE-CARDS": {
-    //   return {
-    //     ...state,
-    //
-    //   };
-    // }
     default:
       return state;
   }
@@ -87,8 +70,6 @@ export const packsReducer = (state = initialState, action: ActionsType): initial
 //actions
 const setPacks = (packs: Array<CardPacksType>) => ({ type: "SET-PACKS", packs } as const);
 const addPackTitle = (packs: any) => ({ type: "ADD-PACK-TITLE", packs } as const);
-const removePack = (id: string) => ({ type: "REMOVE-PACK", id } as const);
-const updatedCardsPack = (id: string, title: string) => ({ type: " UPDATED-CARDS-PACK", id, title } as const);
 const setPage = (page: number) => ({ type: "SET-PAGEP", page } as const);
 export const setPageCount = (pageCount: number) => ({ type: "PACKS/SET-PAGE-COUNT", pageCount } as const);
 const setCardPackTotalCount = (cardPackTotalCount: number) =>
@@ -101,42 +82,50 @@ export const setRangeCards = (min: number, max: number) => ({ type: "SET-RANGE-C
 export const fetchPacksThunk =
   (page: number, pageCount: number, sortPack: string, searchValue?: string, min?: number, max?: number) =>
   (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true));
     packsAPI
       .getPacks(page, pageCount, sortPack, searchValue, min, max)
       .then((res) => {
+        dispatch(toggleIsFetching(false));
         dispatch(setPacks(res.data.cardPacks));
         dispatch(setPage(page));
         dispatch(setCardPackTotalCount(res.data.cardPacksTotalCount));
-        console.log(res);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-export const addNewPack = (title: string) => (dispatch: Dispatch) => {
+export const addNewPack = (title: string) => (dispatch: any, getState: any) => {
+  dispatch(toggleIsFetching(true));
   packsAPI.addNewPack(title).then(() => {
-    dispatch(addPackTitle(title));
+    const { page, pageCount, sortPack } = getState();
+    dispatch(fetchPacksThunk(page, pageCount, sortPack));
+    dispatch(toggleIsFetching(false));
   });
 };
 
-export const deletePack = (id: string) => (dispatch: Dispatch) => {
+export const deletePack = (id: string) => (dispatch: any, getState: any) => {
+  dispatch(toggleIsFetching(true));
   packsAPI.deletePack(id).then(() => {
-    dispatch(removePack(id));
+    const { page, pageCount, sortPack } = getState();
+    dispatch(toggleIsFetching(false));
+    dispatch(fetchPacksThunk(page, pageCount, sortPack));
   });
 };
 
-export const updatedPacksTitle = (id: string, title: string) => (dispatch: Dispatch) => {
+export const updatedPacksTitle = (id: string, title: string) => (dispatch: any, getState: any) => {
+  dispatch(toggleIsFetching(true));
   packsAPI.updatedCardsPack(id, title).then(() => {
-    dispatch(updatedCardsPack(id, title));
+    const { page, pageCount, sortPack } = getState();
+    dispatch(toggleIsFetching(false));
+    dispatch(fetchPacksThunk(page, pageCount, sortPack));
   });
 };
 
 type ActionsType =
   | ReturnType<typeof setPacks>
   | ReturnType<typeof addPackTitle>
-  | ReturnType<typeof removePack>
-  | ReturnType<typeof updatedCardsPack>
   | ReturnType<typeof setCardPackTotalCount>
   | ReturnType<typeof setPage>
   | ReturnType<typeof setPageCount>

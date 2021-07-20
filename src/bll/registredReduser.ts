@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { API } from "../api/api";
+import { toggleIsFetching } from "./loginReducer";
 
 const initState = {
   isRegistered: false,
@@ -9,7 +10,6 @@ const initState = {
 
 export const registredReducer = (state: initialStateType = initState, action: ActionsType): typeof initState => {
   switch (action.type) {
-
     case "SET-ERROR":
       return {
         ...state,
@@ -21,11 +21,6 @@ export const registredReducer = (state: initialStateType = initState, action: Ac
         isRegistered: action.isRegistered,
       };
 
-    case "TOGGLE_IS_FETCHING":
-      return {
-        ...state,
-        isFetching: action.isFetching,
-      };
     default:
       return state;
   }
@@ -33,11 +28,6 @@ export const registredReducer = (state: initialStateType = initState, action: Ac
 
 //actions
 export const setError = (error: string | null) => ({ type: "SET-ERROR", error } as const);
-export const toggleIsFetching = (isFetching: boolean) =>
-  ({
-    type: "TOGGLE_IS_FETCHING",
-    isFetching,
-  } as const);
 export const setIsRegistered = (isRegistered: boolean) =>
   ({
     type: "SET-IS-REGISTERED",
@@ -61,8 +51,9 @@ export const checkInThunk = (email: string, password: string) => (dispatch: Disp
 };
 
 //types
-type ActionsType = ReturnType<typeof setError> | ReturnType<typeof toggleIsFetching> |
-    ReturnType<typeof setIsRegistered>
+type ActionsType =
+  | ReturnType<typeof setError>
+  | ReturnType<typeof toggleIsFetching>
+  | ReturnType<typeof setIsRegistered>;
 
 type initialStateType = typeof initState;
-
