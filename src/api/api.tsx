@@ -40,7 +40,7 @@ export const authAPI = {
 };
 
 export const packsAPI = {
-  getPacks(page: number, pageCount: number, sortPack: string, searchValue?: string, min?: number, max?: number) {
+  getPacks(page: number, pageCount: number = 10, sortPack: string, searchValue?: string, min?: number, max?: number) {
     return instance.get<ResponceType<Array<CardPacksType>>>("cards/pack", {
       params: {
         page: page,
@@ -65,7 +65,6 @@ export const packsAPI = {
   updatedCardsPack(id: string, title?: string) {
     return instance.put("cards/pack", { cardsPack: { _id: id, name: title } });
   },
-
 };
 
 export const cardsAPI = {
@@ -95,10 +94,9 @@ export const cardsAPI = {
     return instance.delete(`cards/card/?id=${id}`);
   },
 
-
-updatedCardsQuestion(id: string, question?: string) {
-  return instance.put("cards/card", { card: { _id: id, question: question } });
-},
+  updatedCardsQuestion(id: string, question?: string) {
+    return instance.put("cards/card", { card: { _id: id, question: question } });
+  },
 };
 
 export type ResponceType<T = {}> = {

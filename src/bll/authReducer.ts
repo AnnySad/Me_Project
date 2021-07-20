@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { API, authAPI } from "../api/api";
-import {isLoginedAC} from "./loginReducer";
+import { isLoginedAC } from "./loginReducer";
 
 const initState = {
   _id: null as null | string,
@@ -31,15 +31,16 @@ export const authThunk = () => (dispatch: Dispatch) => {
   return authAPI.authMe().then((res) => {
     let { _id, name, email } = res.data;
     dispatch(setUserData({ _id, name, email, isAuth: true }));
+    console.log(res);
   });
 };
 
 export const logOutTC = () => (dispatch: Dispatch) => {
-  API.logout().then(res => {
-    dispatch(isLoginedAC(false))
-    dispatch(setUserData({_id: null, email: null, name: null, isAuth: false}))
-  })
-}
+  API.logout().then((res) => {
+    dispatch(isLoginedAC(false));
+    dispatch(setUserData({ _id: null, email: null, name: null, isAuth: false }));
+  });
+};
 
 //types
 type ActionsType = ReturnType<typeof setUserData>;
